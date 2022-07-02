@@ -1,0 +1,591 @@
+<div class="linha-morta"></div>
+<div class="tudo">
+  <%# <h1>DEU CERTO!!!!</h1>
+
+  <h1>
+    <py-script style="color: red"> 
+    print('Usando Python') 
+    from random import sample
+    array = list(range(1,61))
+    selecionando6 = sample(array, 6)
+    print(sorted(selecionando6))
+    for x in selecionando6:
+      print(x)
+
+    </py-script>
+  </h1>
+  <p>
+    <py-script style="color: blue">
+    print(sorted(selecionando6))
+    </py-script>
+  </p>
+  <ul>
+    <py-script>
+      <li>
+    for x in selecionando6:
+      print(x)
+      <li>
+        <%# print(f'<li> {x}</li>') %>
+    <%# </py-script>  
+  </ul>  %>
+
+
+
+  <div>
+    <div class="inicio">
+      <h1>
+      CRIE E ORGANIZE SUAS APOSTAS
+      </h1>
+      <P>Seus jogos serão gerados de forma ágil e estruturada, permitindo que você construa palpites vencedores em diferentes configurações, controlando os custos por apostador</P>
+    </div>
+
+    <form action="" method="POST" class="form-inline" id="teste"> <!-- método GET ou POST -->
+      <%# <input type="hidden" name="authenticity_token" value="6mcCvU7ZazpIBcJTptw/8y4EucmzccFWli7tFUzX6IJEx8wq6PFC7m4rA1Jy+W4YW1hlhYhSOyhZefWtOM5ofQ=="> %>
+      <div class="form-group">
+        <div>
+          <label  for="tipoSorteio">Modalidade: </label>
+          <select form="teste" name="sorteio" class="form-control" id="sorteio"  required >
+            <option value="">Escolha a sua modalidade</option>
+            <option value="mega" >Megasena</option>
+            <option value="dupla">Duplasena</option>
+            <option value="quina">Quina</option>
+            <option value="lotof">Lotofácil</option>
+          </select>  
+        </div>
+
+        <div>
+          <label for="numeros_na_aposta">Quantidade de números por aposta: </label>
+          <select form="teste" name="quantidadeNumeros" class="form-control" id="opcoesDaAposta"  required >
+              <%# <option value=""></option>    %>
+          </select>
+        </div>
+        <div>
+          <label for="quantidade">Quantidade de apostas: </label>
+          <select form="teste" name="quantidadeJogos" class="form-control" id="quantidade"  required >
+            <%# <option value="nada"></option> %>
+          </select>  
+        </div>
+        <div>
+          <label for="arrival">Data do sorteio (opcional): </label> <!-- é o rótulo que vem sobre o campo de input -->
+          <input type="date" min="<%= Time.now.strftime("%Y-%m-%d") %>" name="data" class="form-control testando-shadow optional" > <!-- tipo 'date' vai criar calendário no form; mas esse calendário só funciona no chrome; 'for' do label e 'name' do input devem casar -->
+        </div>
+
+        <%# <div>
+          <p>Organizar Bolão2 ? </p>
+          <div class="radio-inline">
+            <input type='radio' id="bolao" name='bolao' value='Nao' checked>
+            <label for="bolao">Não</label><br>
+          </div>
+          <div class="radio-inline">
+            <input type='radio' id="bolao" name='bolao' value='Sim'>
+            <label for="bolao">Sim</label><br>
+          </div>
+        </div> %>
+
+        <div>
+          <fieldset>
+
+              <legend>Organizar Bolão 1? (opcional) </legend>
+                <div class="radio-inline">
+                  <input type='radio' id="bolaoNao" name='bolao' value='nao'  checked>
+                  <label for="bolao">Não</label><br>
+                </div>
+                <div class="radio-inline" >
+                  <input  type='radio' id="bolaoSim" name='bolao' value='sim' >
+                  <label  for="bolao">Sim</label><br>
+                </div>
+          </fieldset>
+        </div>
+
+        
+        <div id="divDoBolao" style="display: none">
+          <div>
+            <label for="quantidadeApostadores2">Quantidade de apostadores (2 a 100): </label>
+            <%# <input id="quantidadeApostadores" name="quatidadeApostadores" type="number" min="2" max="100" ><br> %>
+
+    <%# TESTANDO NOVO SELETOR %>
+            <select form="teste" name="quantidadeApostadores2" class="form-control" id="quantidadeApostadores2" onchange="trocarQuantidadeCampos()" > <%# fazer o required ativar aqui!!%>
+                <%# <option value=></option>    %>
+            </select>
+
+          </div>
+
+
+          <div>
+            <fieldset>
+
+                <legend>Informar quotas por apostador (0,5 a 20)? (somente em caso de quotas distintas por apostador) </legend>
+                  <div class="radio-inline">
+                    <input type='radio' id="bolaoQuotasNao" name='bolaoQuotas' value='nao'  checked>
+                    <label for="bolaoQuotas">Não</label><br>
+                  </div>
+                  <div class="radio-inline">
+                    <input type='radio' id="bolaoQuotasSim" name='bolaoQuotas' value='sim' >
+                    <label for="bolaoQuotas">Sim</label><br>
+                  </div>
+            </fieldset>
+          </div>
+
+          <div id="todos_apostadores">
+            <div>
+              <input type='checkbox' id='todos_pagos' > Todas as quotas pagas
+            </div>
+      <%# APOSTADOR 1 %>
+            <div class="form-group">
+              <label for="apostador">1. </label>
+              <input type="text" id="apostador" name="apostador1" maxlength="23" placeholder="Nome (opcional)"><br><br>
+            </div>
+            <div class="form-group">
+              <label for="pagamento">
+                <input type="checkbox" class="pagamento" name="pagamento1">pago
+              </label>
+            </div>
+      <%# APOSTADOR 2 %>
+            <div class="form-group">
+              <label for="apostador">2. </label>
+              <input type="text" id="apostador" name="apostador2" maxlength="23" placeholder="Nome (opcional)"><br><br>
+            </div>
+            <div class="form-group">
+              <label for="pagamento">
+                <input type="checkbox" class="pagamento" name="pagamento2">pago
+              </label>
+            </div>
+
+            <div id="divDasQuotas" style="display: none">
+              <label for="quantidadeQuotas">Quotas : </label>
+              <input id="quantidadeQuotas" name="quatidadeQuotas" type="number"  value="1" min="0.5" max="20" step="0.5"> <%# tirei o   placeholder="1 quota" %>
+            </div>
+          </div>
+
+
+
+
+          <div id="testesoma">
+            <%# ARRUMAR ISSO PARA TOTALIZAR AS COTAS %>
+            <input class="my-input"  type="number" name="cota1" value="0" min="0" />
+            <input class="my-input"  type="number" name="cota2" value="0" min="0" />
+            <input class="my-input"  type="number" name="cota3" value="0" min="0" />
+            <!-- <input type="text" id="total" value="" /> -->
+            <p id="total"></p>
+          </div>
+        </div>
+
+
+        <div>
+          <div  >
+            <h4 class="botao-adicao-subtracao">
+              <button type="button" class="subtrair"> - </button> Retirar  
+            </h4>
+          </div>
+          <div>
+            <h4 class="botao-adicao-subtracao">
+              <button type="button" class="adicionar " style=""> + </button> Adicionar  
+            </h4>
+          </div>
+        </div>
+
+        <%# <style>
+          .adicionar {
+            font-size: 18px;
+            border-radius: 50%;
+            padding: 3px 8px;
+            font-weight: 900;
+            color: white;
+            background-color: #0069D9;
+            box-shadow: 1px 1px 5px grey;
+            border: none;
+            
+          }
+
+          .subtrair {
+            font-size: 22px;
+            border-radius: 50%;
+            padding: 0px 10px;
+            padding-bottom: 3px;
+            font-weight: 900;
+            color: white;
+            background-color: #ff4d4d;
+            box-shadow: 1px 1px 5px grey;
+            border: none;
+          }
+
+
+          .botao-mais-menos{
+            border-radius: 50%;
+            background-color: #c7f9cc;
+            border: none;
+            color: white;
+            padding: 1px 1px;
+            font-size: 16px;
+            /* cursor: pointer; */
+          }
+          
+
+          .fas {
+            text-shadow: 1px 1px 3px #d0cdc0; /* #EFEAD8 */
+            font-size: 20px;
+          }
+
+          label, option, legend, input, button {
+            color: #22577A;
+          }
+
+          .testando-shadow { /*utilizado na data */
+          box-shadow: 5px 5px 8px rgb(165 170 181 / 25%) inset; 
+          }
+
+        /* box-shadow: 5px 5px 8px rgb(165 170 181 / 25%) inset; */
+
+        </style> %>
+
+        <i class="fas fa-cocktail ml-5 mt-3" style="color: #4DB6AC">Adicionar 2</i>
+        <button type="button" class="botao-mais-menos"><i class="fas fa-plus-circle" style="color: #0069D9"></i></button>
+        <button type="button" class="botao-mais-menos"><i class="fas fa-minus-circle" style="color: #ff4d4d"></i></button>
+
+        <div>
+          <i class="fas fa-wrench"></i>
+          <i class="fas fa-construction"></i>
+          <i class="fas fa-tools"></i>
+          <i class="fas fa-cross"></i>
+          <%# <i class="fas fa-digging"></i>
+          <i class="far fa-tools"></i> %>
+          <%# <i class="fal fa-shield-cross"></i> %>
+          <i class="fas fa-shopping-cart"></i>
+          <i class="fas fa-chess-rook"></i>
+          <i class="fas fa-user-secret"></i>
+          <i class="fas fa-anchor"></i>
+          <i class="fas fa-flag"></i>
+          <i class="fas fa-car"></i>
+          <i class="fas fa-cat"></i>
+          <i class="fas fa-check"></i>
+          <i class="fas fa-chart-line"></i>
+          <i class="fas fa-chess"></i>
+          <i class="fas fa-chess-knight"></i>
+          <i class="fas fa-clipboard-check"></i>
+          <i class="fas fa-sun"></i>
+          <i class="fas fa-cloud-sun"></i>
+          <i class="fas fa-cloud-moon"></i>
+          <i class="fas fa-moon"></i>
+          <i class="fas fa-cog"></i>
+          <i class="fas fa-coins"></i>
+          <i class="fas fa-comment"></i>
+          <i class="fas fa-horse"></i>
+          <i class="fas fa-crow"></i>
+          <i class="fas fa-crown"></i>
+          <i class="fas fa-dog"></i>
+          <i class="fas fa-donate"></i>
+          <i class="fas fa-dove"></i>
+          <i class="fas fa-door-open"></i>
+          <i class="fas fa-fish"></i>
+          <%# <i class="fas fa-github"></i> %>
+          <i class="fab fa-github"></i>
+          <i class="fas fa-globe-americas"></i>
+          <i class="fas fa-globe"></i>
+          <i class="fas fa-grin"></i>
+          <i class="fas fa-grin-alt"></i>
+          <i class="fab fa-grunt"></i>
+          <%# <i class="fas fa-hand-holding-seedling"></i> %>
+          <i class="fas fa-hand-holding-usd"></i>
+          <i class="fas fa-hand-holding-heart"></i>
+          <i class="fas fa-hand-point-left"></i>
+          <i class="fas fa-hands-helping"></i>
+          <i class="fas fa-handshake"></i>
+          <i class="fas fa-hands"></i>
+          <i class="fas fa-hat-cowboy"></i>
+          <i class="fas fa-seedling"></i>
+          <i class="fas fa-paper-plane"></i>
+          <i class="fas fa-file-pdf"></i>
+          <i class="fas fa-file-excel"></i>
+          <i class="fas fa-file-csv"></i>
+          <i class="fas fa-exclamation-triangle"></i>
+          <i class="fas fa-exclamation-circle"></i>
+          <%# <i class="fas fa-bell-exclamation"></i> %> <%# PARA AVISAR DE VALORES ACUMULADOS!! %>
+          <i class="fas fa-clock"></i>
+          <i class="fas fa-bell"></i>
+          <i class="fas fa-skull-crossbones"></i>
+          <i class="fas fa-money-bill-wave"></i>
+          <i class="fas fa-money-bill"></i>
+          <i class="fas fa-umbrella"></i>
+          <i class="fas fa-laptop"></i>
+          <i class="fas fa-mobile"></i>
+          <%# <i class="fas fa-mobile-android"></i> %>
+          <%# <i class="fas fa-mobile-android-alt"></i> %>
+          <i class="fas fa-drafting-compass"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star-shooting"></i>
+          <%# <i class="fas fa-starfighter"></i> %>
+          <i class="fas fa-medal"></i>
+          <i class="fas fa-box-open"></i>
+          <i class="fas fa-archive"></i>
+          <%# <i class="fas fa-telescope"></i> %>
+          <i class="fas fa-thermometer-full"></i>
+          <%# <i class="fas fa-phone-rotary"></i> %>
+          <i class="fas fa-phone"></i>
+          <i class="fas fa-phone-alt"></i>
+          <i class="fas fa-question-circle"></i>
+          <i class="fas fa-print"></i>
+          <i class="fas fa-map-marker-alt"></i>
+          <i class="fas fa-lock"></i>
+          <i class="fas fa-lightbulb"></i>
+          <i class="fas fa-info-circle"></i>
+          <i class="fas fa-gas-pump"></i> 
+          <i class="fas fa-folder-open"></i>
+          <i class="fas fa-thumbs-up"></i>
+          <i class="fas fa-thumbs-down"></i>
+          <i class="fas fa-trash-restore"></i>
+          <i class="fas fa-truck-monster"></i>
+          <i class="fas fa-unlock"></i>
+          <i class="fas fa-user"></i>
+          <i class="fas fa-user-alt"></i>
+          <i class="fas fa-user-astronaut"></i>
+          <%# <i class="fas fa-turtle"></i> %>
+          <i class="fas fa-network-wired"></i>
+          <i class="fas fa-sack-dollar"></i>
+          <i class="fas fa-credit-card"></i>
+          <i class="fas fa-dollar-sign"></i>
+          <i class="fas fa-euro-sign"></i>
+          <%# <i class="fas fa-usd-circle"></i> %>
+          <%# <i class="fas fa-usd-square"></i> %>
+          <i class="fas fa-candy-cane"></i>
+          <i class="fas fa-shoe-prints"></i>
+          <i class="fas fa-snowboarding"></i>
+          <i class="fas fa-snowflake"></i>
+
+
+          <i class="fas fa-digging"></i>
+
+          <%= icon('fas', 'flag') %>
+
+          <%= icon('fab', 'font-awesome', 'Font Awesome', id: 'my-icon', class: 'strong') %>
+          <%# O arquivo acima constroi o que se segue: <i id="my-icon" class="fab fa-font-awesome strong" aria-hidden="true"></i> Font Awesome %>
+
+          <%= icon('far', 'address-book', class: 'strong') %>
+
+          <i class="fas fa-question"></i>
+          <i class="fas fa-question-circle"></i>
+          <i class="far fa-question-circle" style="font-size: 24px"></i>
+          <i class="fas fa-arrow-circle-up"></i>
+          <i class="fas fa-arrow-circle-down"></i>
+          <i class="fas fa-barcode"></i>
+          <i class="fas fa-edit"></i>
+          <i class="fas fa-snowplow"></i>
+          <i class="fas fa-shipping-fast"></i>
+          <i class="fas fa-code"></i>
+          <i class="fas fa-laptop-code"></i>
+          <i class="fas fa-microscope"></i>
+          <i class="fas fa-stethoscope"></i>
+          <i class="fas fa-plane"></i>
+          <i class="fas fa-qrcode"></i>
+          <%# <i class="fas fa-lightbulb-exclamation"></i>
+          <i class="fas fa-alarm-exclamation"></i>
+          <i class="fas fa-shield-cross"></i> %>
+          <i class="fas fa-key"></i>
+          <i class="fas fa-user-lock"></i>
+          <%# <i class="fas fa-alarm-clock"></i>
+          <i class="far fa-alarm-clock"></i>
+          <i class="fas fa-hand-holding-seedling"></i>
+          <i class="far fa-hand-holding-seedling"></i>
+          <i class="fad fa-hand-holding-seedling"></i>
+          <i class="fal fa-hand-holding-seedling"></i> %>
+          <i class="fas fa-utensils"></i>
+          <%# <i class="fas fa-wheat"></i> %>
+          <%# <i class="fas fa-tree-alt"></i>
+          <i class="fas fa-trees"></i> %>
+          <i class="fas fa-tree"></i>
+          <%# <i class="fal fa-trees"></i> %>
+          <%# <i class="fas fa-shovel"></i>
+          <i class="fas fa-starship"></i> %>
+          <%# <i class="fas fa-starfighter"></i>
+          <i class="fas fa-starfighter-alt"></i>
+          <i class="fad fa-starfighter"></i> %>
+          <i class="fas fa-chess"></i>
+          <i class="fas fa-phone-rotary"></i>
+          <i class="fas fa-truck-monster"></i>
+          <%# <i class="fas fa-candle-holder"></i> %>
+          <%# <i class="fas fa-file-search"></i> %>
+          <i class="fas fa-file-signature"></i> 
+          <i class="fas fa-file-word"></i>
+          <%# <i class="fas fa-cabinet-filing"></i>
+          <i class="fad fa-shield-cross"></i>
+          <i class="far fa-shield-cross"></i>
+          <i class="fal fa-shield-cross"></i> %>
+          <i class="fas fa-robot"></i>
+          <i class="fas fa-search-dollar"></i>
+          <i class="fas fa-search"></i>
+          <i class="fas fa-search-plus"></i>
+          <i class="fas fa-envelope"></i>
+          <i class="fas fa-glass-cheers"></i>
+          <%# <i class="fal fa-glass-cheers"></i> %>
+          <i class="fas fa-dice-six"></i>
+          <%# <i class="far fa-dice-six"></i> %>
+          <i class="fas fa-trophy"></i>
+          <%# <i class="fas fa-sword"></i>
+          <i class="fad fa-sword"></i>
+          <i class="fas fa-swords"></i> %>
+          <%# <i class="fas fa-calculator-alt"></i> %>
+          <i class="fas fa-check"></i>
+          <i class="fas fa-check-circle"></i>
+          <i class="fas fa-list-ol"></i>
+          <i class="fas fa-skull"></i>
+          <i class="fas fa-trash-alt"></i>
+          <i class="fas fa-trash"></i>
+          <i class="fas fa-user-times"></i>
+          <i class="fas fa-user-slash"></i>
+          <i class="fas fa-user-alt"></i>
+          <i class="fas fa-user-check"></i>
+          <%# <i class="fas fa-user-crown"></i>  %>
+          <i class="fas fa-user-edit"></i>
+
+
+
+      
+
+          <%# <i class="fas fa-turtle"></i> %>
+        </div>
+        <%# <i class="fa-solid fa-circle-minus ml-5 mt-3"></i>
+        <i class="fa-duotone fa-clock-ten"></i> %>
+      </div>
+
+
+
+      <input type="submit" class="btn btn-primary" value="Gerar Aposta" > <%# onClick="vazio()"%>
+    </form>
+  </div>
+  <div class="divulgacao">
+  </div>
+</div>
+
+
+<%# <script>
+var quantidadeJogos = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
+var mega = {
+  numeros: [6,7,8,9,10,11,12,13,14,15],
+  valor: ["R$ 4,50", "R$ 31,50", "R$ 126,00", "R$ 378,00", "R$ 945,00", "R$ 2.079,00", "R$ 4.158,00","R$ 7.722,00","R$ 13.513,50","R$ 22.522,50"],
+  probabilidade: ["50.063.860", "7.151.980", "1.787.995", "595.998", "238.399", "108.363", "54.182", "29.175", "16.671", "10.003"]
+};
+
+var dupla = {
+  numeros: [6,7,8,9,10,11,12,13,14,15],
+  valor: ["R$ 4,50", "R$ 31,50", "R$ 126,00", "R$ 378,00", "R$ 945,00", "R$ 2.079,00", "R$ 4.158,00","R$ 7.722,00","R$ 13.513,50","R$ 22.522,50"],
+  probabilidade: ["50.063.860", "7.151.980", "1.787.995", "595.998", "238.399", "108.363", "54.182", "29.175", "16.671", "10.003"]
+};
+
+var quina = {
+  numeros: [5,6,7,8,9,10,11,12,13,14,15],
+  valor: ["R$ 2,00", "R$ 12,00", "R$ 42,00", "R$ 112,00", "R$ 252,00", "R$ 504,00", "R$ 924,00","R$ 1.584,00","R$ 2.574,00","R$ 4.004,00", "R$ 6.006,00"],
+  probabilidade: ["24.040.016", "4.006.669", "1.144.763", "429.286", "190.794", "95.396", "52.035", "30.354", "18.679", "12.008", "8.005"]
+};
+
+var lotof = {
+  numeros: [15, 16, 17, 18, 19, 20],
+  valor: ["R$ 2,50", "R$ 40,00", "R$ 340,00", "R$ 2.040,00", "R$ 9.690,00", "R$ 38.760,00"],
+  probabilidade: ["3.268.760", "204.298", "24.035", "4.006", "843", "211"]
+};
+
+// console.log(quina.numeros[1])
+
+function trocarSeletorNumeros() {
+  var sorteioEscolhido = document.getElementById("sorteio");
+  var sorteio ;
+  if (sorteioEscolhido.value == "mega") {
+    sorteio = mega
+  } else if (sorteioEscolhido.value == "quina") {
+    sorteio = quina
+  } else if (sorteioEscolhido.value == "dupla") {
+    sorteio = dupla
+  } else if (sorteioEscolhido.value == "lotof") {
+    sorteio = lotof
+  };
+  //criando seletores para números a apostar
+  var seletorNumeros = document.getElementById("opcoesDaAposta");
+  var length = sorteio.numeros.length;
+  var opcoesDeNumeros = ""; 
+  for (var i = 0; i < length; i++) { //aqui, i é o elemento do array
+    opcoesDeNumeros += "<option value='" + sorteio.numeros[i] + "'"+ " >" + sorteio.numeros[i] + "</option>"; 
+  };
+  
+  //criando seletores para quantidade de apostas
+  var seletorQuantidade = document.getElementById("quantidade");
+  var opcoesQuantidadeJogos = '<option value="">Selecione</option>';
+  var lengthQuantidade = quantidadeJogos.length;
+  for (var i = 0; i < lengthQuantidade; i++) { //aqui, i é o elemento do array
+    opcoesQuantidadeJogos += "<option value='" + quantidadeJogos[i] + "'"+ " >" + quantidadeJogos[i] + "</option>"; 
+  };
+  seletorNumeros.innerHTML = opcoesDeNumeros; //seletor de números a apostas
+  seletorQuantidade.innerHTML = opcoesQuantidadeJogos; //quantidade de apostas
+}
+
+
+  // FUNÇÃO PARA SELECIONAR TODAS AS QUOTAS COMO PAGAS
+  function selectAll() {
+      var blnChecked = document.getElementById("todos_pagos").checked;
+      var check_pagamentoS = document.getElementsByClassName("pagamento");
+      var intLength = check_pagamentoS.length;
+      for(var i = 0; i < intLength; i++) {
+          var check_pagamento = check_pagamentoS[i];
+          check_pagamento.checked = blnChecked;
+      }
+  }
+
+function opcoesBolao() {
+  var fazerBolaoSim = document.getElementById("bolaoSim");
+  var fazerBolaoNao = document.getElementById("bolaoNao");
+
+  if (fazerBolaoSim.checked) {
+    document.getElementById("divDoBolao").setAttribute("style", "")
+    document.getElementById("quantidadeApostadores2").required = true
+
+    //criando seletores para o número de apostadores do bolão:
+    var arrayDeCem = Array.from(Array(100).keys()); // cria array de 0 a 99
+    var arrayDeCemNovo = arrayDeCem.map(num => num + 1); // soma 1 a cada elemento do array anterior, ou seja, cria array de 1 a 100
+    arrayDeCemNovo.splice(0, 1); // isso retira 1 item do array, começando pelo índice 0, fazendo ele começar pelo número 2
+    var seletorApostadores = document.getElementById("quantidadeApostadores2");
+    // seletorApostadores.required = true
+    var length = arrayDeCemNovo.length;
+    var opcoesDeApostadores = '<option value="">Selecione</option>'; 
+    for (var i = 0; i < length; i++) { //aqui, i é o elemento do array
+      opcoesDeApostadores += "<option value='" + arrayDeCemNovo[i] + "'"+ " >" + arrayDeCemNovo[i] + "</option>"; 
+    };
+    seletorApostadores.innerHTML = opcoesDeApostadores; //seletor de apostadores criado
+
+
+
+  } else if (fazerBolaoNao.checked) {
+    document.getElementById("divDoBolao").setAttribute("style", "display: none")
+    document.getElementById("quantidadeApostadores2").required = false
+  };
+};
+
+function opcoesQuotas() {
+  var bolaoQuotasSim = document.getElementById("bolaoQuotasSim");
+  var bolaoQuotasNao = document.getElementById("bolaoQuotasNao");
+  if (bolaoQuotasSim.checked) {
+    // fazerBolaoNao.checked == false
+    document.getElementById("divDasQuotas").setAttribute("style", "")
+  } else if (bolaoQuotasNao.checked) {
+    document.getElementById("divDasQuotas").setAttribute("style", "display: none")
+  };
+};  
+
+
+
+// ARRUMAR ISSO PARA TOTALIZAR AS COTAS
+function logKey() {
+  var input = document.getElementsByClassName("my-input");
+  var total = 0;
+  for (var i = 0; i < input.length; i++) { //aqui, i é o elemento do array
+    var valor = parseFloat(input[i].value);
+    total += valor; 
+  };
+  var inputTotal = document.getElementById("total")
+  inputTotal.innerHTML = total  
+};
+
+
+
+var arrayDeCem = Array.from(Array(100).keys()) // cria array de 0 a 99
+var arrayDeCemNovo = arrayDeCem.map(num => num + 1); // soma 1 a cada elemento do array anterior, ou seja, cria array de 1 a 100
+// Criar html <select name="hour"> // com a quantidade de jogadores e isso abrirá campos para preencher jogador, pagamento e quotas, se for o caso
+//               <option value="1">1</option>
+//            </select>
+</script> %>

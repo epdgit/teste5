@@ -1,0 +1,224 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+ // External libraries
+// @import "bootstrap/scss/bootstrap";
+ //  @import "font-awesome-sprockets"; usado com a gema 5.12.0
+ @import "font-awesome";
+
+
+ // Graphical variables
+@import "config/fonts"; // é possível importar porque criei o arquivo _fonts.scss na pasta criada com o nome config
+// @import "config/colors";
+// @import "config/bootstrap_variables";
+
+// Your CSS partials
+@import "pages";
+
+
+.logo {
+  display: flex;
+}
+
+.etarta h1 {
+  color: #204A65;
+  font-weight: 900;
+  font-size: 64px;
+  font-family: 'Rokkitt', serif;
+
+}
+
+.portal-logo {
+  max-width: 100px;
+}
+
+.header {
+  display: flex;
+  flex-wrap: wrap; // item quebra a linha se o espaço não der ele
+  position: fixed;
+  background-color: #ffffff;
+  width: 100vw;
+  align-items: center;
+  z-index: 1;
+  justify-content: space-between;
+  // margin: 0 auto;
+}
+
+.login-form {
+  display: flex;
+}
+
+#botao-form-login {
+  margin-top: 34px; 
+  margin-bottom: 34px;
+  margin-right: 50px;
+  margin-left: 15px;
+}
+
+#botao-form-login {
+  transition: 0.4s;
+  opacity: 1;
+}
+
+
+.linha-morta {
+  padding-top: 150px;
+  // background-color: #295a7a;
+  background-image: linear-gradient(to right, #295a7a, white);
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+.tudo {
+  padding-top: 70px;
+  padding-left: 70px;
+  display: flex;
+
+}
+
+
+// DROP DOWN DO HEADER
+.dropdown {
+  position: relative;
+  display: inline-block;
+  padding: 8px 18px;
+  margin: 49px 107px 52px 107px;
+  position: relative;
+  display: inline-block;
+  color: #22577A;
+  border: 1px solid #D0021B;
+  font-weight: bold;
+  font-size: 17px;
+  border-radius: 5px;
+  box-shadow: 1px 1px 4px 1px #e8e5de;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 345px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 23px 25px;
+  margin: 15px;
+  z-index: 1;
+  font-size: 20px;
+  border-radius: 15px;
+}
+
+// span:hover {
+//   transition: 0.1s;
+//   opacity: 0.2;
+// }
+
+.dropdown:hover { // aqui eu aninhei o Span dentro do Dropdawn quando o mouse passar por cima
+  transition: 0.1s;
+  border: none;
+  span {
+    opacity: 0.2;
+  }
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+
+//CSS DA HOME
+// .abertura {
+//   display: flex;
+// }
+
+.inicio {
+  color: #22577A;
+}
+
+.inicio h1 {
+  color: #204A65;
+  font-weight: 900;
+  font-size: 35px;
+  font-family: 'Rokkitt', serif;
+  margin-bottom: 27px;
+  text-align: center;
+}
+
+.inicio p {
+  color: #204A65;
+  font-weight: 700;
+  font-size: 20px;
+  font-family: 'Rokkitt', serif;
+  margin: 12px 45px;
+}
+
+.divulgacao {
+  padding: 135px;
+  margin-right: 50px;
+  border: 1px solid black;
+  // height: 150px;
+  background-image: linear-gradient(to bottom, #6fd4b8, white);
+  // background-color: rgb(111, 212, 184);
+  // background-image: linear-gradient(to bottom right, red, blue);
+}
+
+
+// .tudo {
+//   position: relative;
+// }
+// .br-header {
+//   position: fixed;
+//   // align-items: center;
+//   // display: flex;
+//   // flex-direction: row;
+//   // position: absolute;
+
+//  }
+
+// .links a {
+//   font-size: 1rem !important;
+// }
+
+// .title {
+//   font-size: 1.8rem !important;
+// }
+
+// .subtitle {
+//   font-size: 1rem !important;
+// }
+
+// .br-header .menu {
+//   margin-top: 10px !important;
+// }
+
+// .portal-logo {
+//   background-size: 111px 40px;
+//   height: 40px;
+//   min-width: 111px;
+//   width: 111px;
+//   margin-bottom: 10px;
+// }
+
+// .br-header .title {
+//   font-size: 1.4rem;
+// }
+
+// .br-footer {
+//   position: absolute;
+//   left: 0;
+//   bottom: 0;
+//   height: 150px;
+//   width: 100%;
+//   overflow: hidden;
+// }
