@@ -48,13 +48,18 @@
 .header {
   display: flex;
   flex-wrap: wrap; // item quebra a linha se o espaço não der ele
-  position: fixed;
+  // position: fixed;
   background-color: #ffffff;
   width: 100vw;
   align-items: center;
-  z-index: 1;
+  // z-index: 1;
   justify-content: space-between;
   // margin: 0 auto;
+}
+
+.header-fixo {
+  position: fixed;
+  z-index: 3;
 }
 
 .login-form {
@@ -73,20 +78,45 @@
   opacity: 1;
 }
 
+#back_linha-morta {
+  background-color: #ffffff;
+}
 
 .linha-morta {
-  padding-top: 150px;
+  // position: fixed; //alterado
+  // z-index: 0; // alterado  
+  padding-top: 7px;
   // background-color: #295a7a;
+  // background-color: #ffffff;
   background-image: linear-gradient(to right, #295a7a, white);
   margin-left: 50px;
   margin-right: 50px;
 }
 
 .tudo {
-  padding-top: 70px;
+  padding-top: 210px;
   padding-left: 70px;
   display: flex;
+}
 
+
+#div_img_background {
+  position: relative;
+}
+
+#div_img_background::after { // isso é chamado de pseudo elemento e foi criado para ficar como imagem de fundo
+  content: "";
+  position: absolute;
+  background-image: url("foto1.jpg");
+  // background-size: cover;
+  width: 100%;
+  height: auto;
+  opacity: 0.07;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  z-index: -1;
 }
 
 
@@ -158,9 +188,10 @@
 .inicio p {
   color: #204A65;
   font-weight: 700;
-  font-size: 20px;
+  font-size: 24px;
   font-family: 'Rokkitt', serif;
-  margin: 12px 45px;
+  margin: 30px 45px;
+  text-align: justify
 }
 
 .divulgacao {
@@ -172,6 +203,190 @@
   // background-color: rgb(111, 212, 184);
   // background-image: linear-gradient(to bottom right, red, blue);
 }
+
+
+//FORMULÁRIO
+.agrupando-campos {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding-top: 15px;
+  padding-bottom: 10px;
+}
+
+.quantidade-apostas {
+  margin-right: 20px;
+}
+
+#opcoesDaAposta, #quantidade {
+  width: 66px;
+}
+
+.button-gerador-aposta {
+  display: block;
+  text-align: center;
+}
+
+.apostadores {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 20px;
+  // padding-bottom: 10px;
+}
+
+.apostadores-quantidade {
+  width: 70%;
+  margin-right: 20px
+}
+
+fieldset {
+  margin-right: 40px;
+}
+
+
+#campos_bolao {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  // overflow: auto;
+}
+
+.cada_cota {
+  display: inline-grid;
+  padding: 20px;
+
+}
+
+
+.pago_e_quota {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;  
+  margin-left: 6px;
+}
+
+.quantidadeQuotas {
+  width: 54px;
+  margin-left: 3px;
+  margin-top: 5px;
+}
+
+#todos_apostadores p {
+  color: #204A65;
+  font-weight: 700;
+  font-size: 21px;
+  font-family: 'Rokkitt', serif;
+  // margin: 30px 45px;
+}
+
+#totalizador_de_quotas {
+  display: flex;
+  padding-left: 60px;
+}
+
+#total_quotas {
+  // padding-left: 10px;
+  background-color: beige;
+  width: 89px;
+  height: 54px;
+  text-align: center;
+  padding: 9px;
+  // margin-top: 14px;
+  // margin-left: 12px;
+  margin: auto 12px;
+  border: solid 2px black;
+  border-radius: 5px;
+  box-shadow: 0px 0px 4px #0069d9;
+}
+
+.nome-apostador {
+  margin: auto !important;
+}
+
+#apostador {
+  width: 150px;
+}
+
+#totalizador_de_apostas {
+  display: flex;
+}
+
+#totalizador_de_apostas_sem_bolao {
+  display: flex;
+}
+
+#total_apostas {
+  background-color: beige;
+  width: 160px;
+  height: 54px;
+  text-align: center;
+  padding: 9px;
+  // margin-top: 14px;
+  // margin-left: 12px;
+  margin: auto 12px;
+  border: solid 2px black;
+  border-radius: 5px;
+  box-shadow: 0px 0px 4px #0069d9;  
+}
+
+#totais {
+  display: flex;
+}
+
+.texto-total {
+  margin: auto;
+}
+
+#teste_valor_total {
+  color: #204A65;
+  font-weight: 700;
+  font-size: 20px;
+  font-family: 'Rokkitt', serif;
+  margin: 20px 0px;
+}
+
+// margin: 25px 0px
+
+#teste_total_apostas {
+  background-color: beige;
+  width: 140px;
+  height: 42px;
+  text-align: center;
+  padding: 9px;
+  margin-top: 14px;
+  margin-left: 12px;
+  border: solid 2px black;
+  border-radius: 5px;
+  box-shadow: 0px 0px 4px #0069d9;
+  color: #204A65;
+  font-weight: 700;
+  font-size: 18px;
+  font-family: 'Rokkitt', serif;  
+}
+
+#div_todos_pagos {
+  margin-top: 30px;
+  margin-left: 46px;
+  margin-bottom: 10px
+}
+
+// .modalidade {
+//   margin-left: 70px;
+// }
+
+// .quantidade-numeros {
+//   margin-left: 50px;
+// }
+
+// .quantidade-apostas {
+//   margin-left: 70px;
+// }
+
+// .data {
+//   margin-left: 50px;
+// }
 
 
 // .tudo {

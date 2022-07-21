@@ -194,13 +194,27 @@ import { opcoesBolao } from './home';
 import { opcoesQuotas } from './home';
 import { logKey } from './home';
 import { checaPagamentos } from './home';
+import { trocarQuantidadeCampos } from './home';
+import { quotasTotais } from './home';
+import { totalApostas } from './home';
 
 
 
 var sorteioEscolhido = document.getElementById("sorteio");
 sorteioEscolhido.addEventListener("change", () => {
   trocarSeletorNumeros()
+  totalApostas()
 });
+
+var numerosAposta = document.getElementById("opcoesDaAposta");
+numerosAposta.addEventListener("change", () => {
+  totalApostas()
+})
+
+var quantidadeCartoes = document.getElementById("quantidade");
+quantidadeCartoes.addEventListener("change", () => {
+  totalApostas()
+})
 
 
 var fazerBolaoSim = document.getElementById("bolaoSim");
@@ -209,7 +223,15 @@ fazerBolaoSim.addEventListener("click", () => {
   opcoesBolao()
 });
 fazerBolaoNao.addEventListener("click", () => {
+//  trocarQuantidadeCampos() // testar se desaparecem os campos
   opcoesBolao()
+  quotasTotais() //TESTAR SE FICA ZERADO O CONTADOR DE QUOTAS
+});
+
+var camposBolao = document.getElementById("quantidadeApostadores2");
+camposBolao.addEventListener("change", () => {
+  trocarQuantidadeCampos()
+  quotasTotais() // faz a soma das quotas quando informado o nº de apostadores
 });
 
 
@@ -221,6 +243,7 @@ bolaoQuotasSim.addEventListener("click", () => {
 });
 bolaoQuotasNao.addEventListener("click", () => {
   opcoesQuotas()
+  quotasTotais() // faz a soma das quotas quando informado que não quer informar quotas
 });
 
 
@@ -228,7 +251,14 @@ var blnChecked = document.getElementById("todos_pagos")
 blnChecked.addEventListener("click", () => {
   selectAll()
 });
- 
+
+var input = document.getElementById("campos_bolao");
+input.addEventListener("click", () => {
+  quotasTotais()
+});
+
+
+
 var input = document.getElementById("testesoma");
 input.addEventListener("click", () => {
   logKey()
@@ -239,6 +269,9 @@ var todosPagos = document.getElementById("todos_apostadores");
 todosPagos.addEventListener("click", () => {
   checaPagamentos()
 });
+
+
+
 // document.addEventListener('turbolinks:load', () => {
 //   // Call your JS functions here
 //   // [...]

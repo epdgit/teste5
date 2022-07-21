@@ -2,25 +2,25 @@
 var quantidadeJogos = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
 var mega = {
   numeros: [6,7,8,9,10,11,12,13,14,15],
-  valor: ["R$ 4,50", "R$ 31,50", "R$ 126,00", "R$ 378,00", "R$ 945,00", "R$ 2.079,00", "R$ 4.158,00","R$ 7.722,00","R$ 13.513,50","R$ 22.522,50"],
+  valor: [4.50, 31.50, 126.00, 378.00, 945.00, 2079.00, 4158.00,7722.00, 13513.50, 22522.50],
   probabilidade: ["50.063.860", "7.151.980", "1.787.995", "595.998", "238.399", "108.363", "54.182", "29.175", "16.671", "10.003"]
 };
 
 var dupla = {
   numeros: [6,7,8,9,10,11,12,13,14,15],
-  valor: ["R$ 4,50", "R$ 31,50", "R$ 126,00", "R$ 378,00", "R$ 945,00", "R$ 2.079,00", "R$ 4.158,00","R$ 7.722,00","R$ 13.513,50","R$ 22.522,50"],
-  probabilidade: ["50.063.860", "7.151.980", "1.787.995", "595.998", "238.399", "108.363", "54.182", "29.175", "16.671", "10.003"]
+  valor: [2.50, 17.50, 70.00, 210.00, 525.00, 1155.00, 2310.00, 4290.00, 7507.50, 12512.50],
+  probabilidade: ["15.890.700", "2.270.100", "567.525", "189.175", "75.670", "34.395", "17.197", "9.260", "5.291", "3.174"]
 };
 
 var quina = {
   numeros: [5,6,7,8,9,10,11,12,13,14,15],
-  valor: ["R$ 2,00", "R$ 12,00", "R$ 42,00", "R$ 112,00", "R$ 252,00", "R$ 504,00", "R$ 924,00","R$ 1.584,00","R$ 2.574,00","R$ 4.004,00", "R$ 6.006,00"],
+  valor: [2.00, 12.00, 42.00, 112.00, 252.00, 504.00, 924.00, 1584.00, 2574.00, 4004.00, 6006.00],
   probabilidade: ["24.040.016", "4.006.669", "1.144.763", "429.286", "190.794", "95.396", "52.035", "30.354", "18.679", "12.008", "8.005"]
 };
 
 var lotof = {
   numeros: [15, 16, 17, 18, 19, 20],
-  valor: ["R$ 2,50", "R$ 40,00", "R$ 340,00", "R$ 2.040,00", "R$ 9.690,00", "R$ 38.760,00"],
+  valor: [2,50, 40.00, 340.00, 2040.00, 9690.00, 38760.00],
   probabilidade: ["3.268.760", "204.298", "24.035", "4.006", "843", "211"]
 };
 
@@ -48,7 +48,8 @@ function trocarSeletorNumeros() {
   
   //criando seletores para quantidade de apostas
   var seletorQuantidade = document.getElementById("quantidade");
-  var opcoesQuantidadeJogos = '<option value="">Selecione</option>';
+  // var opcoesQuantidadeJogos = '<option value="">Selecione</option>';
+  var opcoesQuantidadeJogos = '';
   var lengthQuantidade = quantidadeJogos.length;
   for (var i = 0; i < lengthQuantidade; i++) { //aqui, i é o elemento do array
     opcoesQuantidadeJogos += "<option value='" + quantidadeJogos[i] + "'"+ " >" + quantidadeJogos[i] + "</option>"; 
@@ -94,6 +95,7 @@ function opcoesBolao() {
   var fazerBolaoNao = document.getElementById("bolaoNao");
 
   if (fazerBolaoSim.checked) {
+    document.getElementById("totalizador_de_apostas_sem_bolao").setAttribute("style", "display: none")
     document.getElementById("divDoBolao").setAttribute("style", "")
     document.getElementById("quantidadeApostadores2").required = true
 
@@ -113,21 +115,106 @@ function opcoesBolao() {
 
 
   } else if (fazerBolaoNao.checked) {
+    document.getElementById("totalizador_de_apostas_sem_bolao").setAttribute("style", "")
     document.getElementById("divDoBolao").setAttribute("style", "display: none")
     document.getElementById("quantidadeApostadores2").required = false
+
+    //FAZENDO TODOS OS CAMPOS DE APOSTADORES DESAPARECEREM EM CASO DE OPÇÃO NÃO FAZER BOLÃO
+    var campos_bolao = document.getElementById("campos_bolao")
+    while (campos_bolao.hasChildNodes()) {
+      campos_bolao.removeChild(campos_bolao.firstChild)
+    };
+
+    //FAZENDO O CHECK DE TODOS PAGOS DESAPARECER SE FOR ESCOLHIDO NÃO FAZER O BOLÃO
+    document.getElementById("todos_pagos").checked = false
+
   };
 };
 
+//DEIXANDO HABILITADO OU DESABILITADO A OPÇÃO DE QUOTAS
 function opcoesQuotas() {
   var bolaoQuotasSim = document.getElementById("bolaoQuotasSim");
   var bolaoQuotasNao = document.getElementById("bolaoQuotasNao");
   if (bolaoQuotasSim.checked) {
     // fazerBolaoNao.checked == false
-    document.getElementById("divDasQuotas").setAttribute("style", "")
+    // document.getElementsByClassName("quantidadeQuotas").removeAttribute("disabled")
+    var quotaS = document.getElementsByClassName("quantidadeQuotas");
+    var intLength = quotaS.length;
+    var total = 0;
+    for(var i = 0; i < intLength; i++) {
+        var quota = quotaS[i];
+        quota.removeAttribute("disabled")
+    }
+
   } else if (bolaoQuotasNao.checked) {
-    document.getElementById("divDasQuotas").setAttribute("style", "display: none")
+
+    var quotaS = document.getElementsByClassName("quantidadeQuotas");
+    var intLength = quotaS.length;
+    var total = 0;
+    for(var i = 0; i < intLength; i++) {
+        var quota = quotaS[i];
+        quota.setAttribute("disabled", "disabled");
+        quota.value = 1; 
+    }
   };
 };  
+
+
+
+// TOTALIZANDO AS QUOTAS
+function quotasTotais() {
+  var inputTodos = document.getElementsByClassName("quantidadeQuotas");
+  var totalFim = 0;
+  for (var i = 0; i < inputTodos.length; i++) { //aqui, i é o elemento do array
+    var valor = parseFloat(inputTodos[i].value);
+    totalFim += valor; 
+  };
+  var inputTotalFim = document.getElementById("total_quotas")
+  inputTotalFim.innerHTML = totalFim  
+};
+
+
+
+// TOTALIZANDO APOSTAS
+function totalApostas() {
+  var modalidade = document.getElementById("sorteio");
+  var numerosAposta = document.getElementById("opcoesDaAposta");
+  var quantidadeApostas = document.getElementById("quantidade");
+  var valorFinalApostas = 0;
+  var sorteio ;
+  var corretorDeIndice ;
+  if (modalidade.value == "mega") {
+    sorteio = mega
+    corretorDeIndice = 6
+
+  } else if (modalidade.value == "quina") {
+    sorteio = quina
+    corretorDeIndice = 5
+
+  } else if (modalidade.value == "dupla") {
+    sorteio = dupla
+    corretorDeIndice = 6
+
+  } else if (modalidade.value == "lotof") {
+    sorteio = lotof
+    corretorDeIndice = 15
+
+  };
+
+  var valorApostas = sorteio.valor[parseInt(numerosAposta.value) - corretorDeIndice]
+  valorFinalApostas += parseFloat(valorApostas)*parseInt(quantidadeApostas.value)
+
+  // INSERINDO NO TOTALIZADOR BOLÃO
+  var inputTotalApostasFim = document.getElementById("total_apostas")
+  inputTotalApostasFim.innerHTML = ("R$ " + valorFinalApostas.toFixed(2)) 
+
+  // INSERINDO NO TOTALIZADOR SEM BOLÃO
+  var inputTotalApostasFim = document.getElementById("teste_total_apostas")
+  inputTotalApostasFim.innerHTML = ("R$ " + valorFinalApostas.toFixed(2)) 
+
+
+}
+
 
 
 
@@ -142,6 +229,82 @@ function logKey() {
   var inputTotal = document.getElementById("total")
   inputTotal.innerHTML = total  
 };
+
+
+
+// CRIANDO CAMPOS DE APOSTADORES NO BOLÃO
+function trocarQuantidadeCampos() {
+  var quantidadeApostadoresBolao = document.getElementById("quantidadeApostadores2");
+
+  //criando campos de apostadores no bolão
+  var divCamposBolao = document.getElementById("campos_bolao");
+  var campos = ""; 
+  for (var i = 1; i <= quantidadeApostadoresBolao.value; i++) { //quantidadeApostadoresBolao.value, é a quantidade de apostadores;  i é o elemento do array
+    campos += "<div class='cada_cota'><div class='form-group nome-apostador'><label for='apostador'>" + i + "." + "</label><input type='text' id='apostador' name='apostador" + i + "' maxlength='19' placeholder='Nome (opcional)'></div><div class='form-group pago_e_quota'><label for='pagamento' style='font-size: 17px;'><input type='checkbox' class='pagamento' name='pagamento" + i + "'>pago</label><div id='valor_quota'><input class='quantidadeQuotas' name='Quotas" + i + "' type='number'  value='1' min='0.5' max='20' step='0.5' disabled><label for='quantidadeQuotas' style='margin-bottom: 9px;font-size: 17px;margin-left: 2px;'>quota(s)</label></div></div></div>"; 
+  };
+
+  divCamposBolao.innerHTML = campos; //novos campos criados sendo inseridos na div
+
+  var quotasNao = document.getElementById("bolaoQuotasNao");
+  quotasNao.checked = true; // PASSA PARA MARCADOR "QUOTAS POR APOSTADOR" PARA NÃO QUANDO TROCA A QUANTIDADE DE APOSTADORES
+
+  var blnChecked = document.getElementById("todos_pagos");
+  blnChecked.checked = false; // PASSA PARA MARCADOR TODOS PAGOS PARA FALSO QUANDO TROCA A QUANTIDADE DE APOSTADORES
+}
+// ESSA FUNÇÃO RENDERIZA O SEGUINTE CÓDIGO:
+// <div id='cada_cota'>
+//   <div class="form-group nome-apostador">
+//     <label for="apostador">1. </label>
+//     <input type="text" id="apostador" name="apostador1" maxlength="23" placeholder="Nome (opcional)"><br><br>
+//     </div>
+//   <div class="form-group pago_e_quota">
+//     <label for="pagamento">
+//       <input type="checkbox" class="pagamento" name="pagamento1">pago
+//     </label>
+//     <div id="valor_quota">
+//      <input class="quantidadeQuotas" name="Quotas1" type="number"  value="1" min='0.5' max='20' step='0.5'  disabled>
+//      <label for="quantidadeQuotas">quota(s)</label>
+//     </div>
+//   </div>
+// </div>
+
+
+
+
+// function trocarQuantidadeCampos() {
+//   var quantidadeApostadoresBolao = document.getElementById("quantidadeApostadores2");
+
+//   var divCamposBolao = document.getElementById("campos_bolao");
+  
+//   if (quantidadeApostadoresBolao.value != "") {
+//     //criando campos de apostadores no bolão
+//     var campos = ""; 
+//     for (var i = 1; i <= quantidadeApostadoresBolao.value; i++) { //quantidadeApostadoresBolao.value, é a quantidade de apostadores;  i é o elemento do array
+//       campos += "<div id='cada_cota'><div class='form-group nome-apostador'><label for='apostador'>" + i + "." + "</label><input type='text' id='apostador' name='apostador" + i + "' maxlength='23' placeholder='Nome (opcional)'></div><div class='form-group pago_e_quota'><label for='pagamento'><input type='checkbox' class='pagamento' name='pagamento" + i + "'>pago</label><div id='valor_quota'><input class='quantidadeQuotas' name='Quotas" + i + "' type='number'  value='1' min='0.5' max='20' step='0.5' disabled><label for='quantidadeQuotas'>quota(s)</label></div></div></div>"; 
+//     };
+
+//     divCamposBolao.innerHTML = campos; //novos campos criados sendo inseridos na div
+
+//     var quotasNao = document.getElementById("bolaoQuotasNao");
+//     quotasNao.checked = true; // PASSA PARA MARCADOR "QUOTAS POR APOSTADOR" PARA NÃO QUANDO TROCA A QUANTIDADE DE APOSTADORES
+
+//     var blnChecked = document.getElementById("todos_pagos");
+//     blnChecked.checked = false; // PASSA PARA MARCADOR TODOS PAGOS PARA FALSO QUANDO TROCA A QUANTIDADE DE APOSTADORES
+//   } else {
+//     divCamposBolao = "<div id='campos_bolao'></div>";
+
+//   }
+// }
+
+
+
+
+
+
+
+
+
+
 
 
 var arrayDeCem = Array.from(Array(100).keys()) // cria array de 0 a 99
@@ -177,6 +340,9 @@ export { opcoesBolao };
 export { opcoesQuotas };
 export { logKey };
 export { checaPagamentos };
+export { trocarQuantidadeCampos };
+export { quotasTotais };
+export { totalApostas };
 
 
 

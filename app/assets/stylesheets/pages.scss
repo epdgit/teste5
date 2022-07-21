@@ -47,6 +47,28 @@ label, option, legend, input, button {
   color: #22577A;
 }
 
+legend {
+  color: #204A65 !important;
+  font-weight: 700 !important;
+  font-size: 15px !important;
+  font-family: 'Rokkitt', serif !important;
+  margin-bottom: 9px !important;
+}
+
+#legenda-quotas {
+  width: 403px;
+}
+
+label {
+  font-weight: 400;
+  font-size: 19px;
+  font-family: 'Rokkitt', serif;
+}
+
+.label-sim-nao {
+  font-size: 16px;
+}
+
 .testando-shadow { /*utilizado na data */
   box-shadow: 5px 5px 8px rgba(165, 170, 181, 0.25) inset; // CHECAR SE ESTÁ FUNCIONANDO!!!
  }
