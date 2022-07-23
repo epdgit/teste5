@@ -195,13 +195,17 @@
 }
 
 .divulgacao {
+  height: 120px;
+  margin-bottom: 40px;
   padding: 135px;
   margin-right: 50px;
-  border: 1px solid black;
+  border: 1px solid grey;
   // height: 150px;
   background-image: linear-gradient(to bottom, #6fd4b8, white);
   // background-color: rgb(111, 212, 184);
   // background-image: linear-gradient(to bottom right, red, blue);
+  border-radius: 3px;
+  box-shadow: 1px 1px 10px grey;
 }
 
 
@@ -370,6 +374,50 @@ fieldset {
   margin-top: 30px;
   margin-left: 46px;
   margin-bottom: 10px
+}
+
+
+#apostas-geradas {
+  width: 70%;
+  margin: 50px auto;
+  border: 1px solid grey;
+  padding-top: 24px;
+  box-shadow: 1px 1px 5px grey;
+  border-radius: 8px;
+}
+
+#jogos-gerados-ruby {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  margin: 8px 5px;
+  background: #0369b9;
+  padding: 10px 12px;
+  border-radius: 50%;
+  font-family: 'Rokkitt', serif;
+  color: #fff;
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.resultado-apostas-geradas {
+  color: #204A65;
+  font-weight: 700;
+  font-size: 46px;
+  font-family: 'Rokkitt', serif;
+  margin-left: 26px;
+  margin-bottom: 25px;
+}
+
+.resultado-apostas-geradas-estatisticas {
+  color: #204A65;
+  font-weight: 700;
+  font-size: 30px;
+  font-family: 'Rokkitt', serif;
+  margin-left: 26px;
+  margin-bottom: 25px;
+  margin-top: 30px;
 }
 
 // .modalidade {

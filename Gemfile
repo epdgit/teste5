@@ -25,7 +25,7 @@ gem 'jbuilder', '~> 2.7'
 
 gem 'font-awesome-sass', '~> 6.1.1'
 gem 'autoprefixer-rails'
-
+gem 'money'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false

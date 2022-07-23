@@ -197,7 +197,7 @@ import { checaPagamentos } from './home';
 import { trocarQuantidadeCampos } from './home';
 import { quotasTotais } from './home';
 import { totalApostas } from './home';
-
+// import { trocarIdDiv } from './home';
 
 
 var sorteioEscolhido = document.getElementById("sorteio");
@@ -270,6 +270,10 @@ todosPagos.addEventListener("click", () => {
   checaPagamentos()
 });
 
+// var botao = document.getElementById("botao-apostas");
+// botao.addEventListener("click", () => {
+//   trocarIdDiv()
+// });
 
 
 // document.addEventListener('turbolinks:load', () => {

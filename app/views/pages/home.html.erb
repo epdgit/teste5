@@ -42,7 +42,7 @@
         <P>Construa palpites vencedores em diferentes configurações, gerando seus jogos de forma ágil e estruturada, permitindo que você controle os custos por apostador</P>
       </div>
 
-      <form action="" method="POST" class="form-inline" id="teste"> <!-- método GET ou POST -->
+      <form action="/"  class="form-inline" id="teste"> <!-- método GET ou POST: method="POST"-->
         <%# <input type="hidden" name="authenticity_token" value="6mcCvU7ZazpIBcJTptw/8y4EucmzccFWli7tFUzX6IJEx8wq6PFC7m4rA1Jy+W4YW1hlhYhSOyhZefWtOM5ofQ=="> %>
         <div class="form-group">
           <div class="agrupando-campos">
@@ -210,7 +210,28 @@
           </div>
 
         <div class="button-gerador-aposta">
-          <input type="submit" class="btn btn-primary" value="Gerar Apostas" > <%# onClick="vazio()"%>
+          <input type="submit" class="btn btn-primary" id="botao-apostas" value="Gerar Apostas" > <%# onClick="vazio()"%>
+        </div>
+
+        <div>
+          <div id="apostas-geradas" style="">
+            <h1 class="resultado-apostas-geradas"><%= @nome %></h1>
+            <ol >
+              <% @conferir.each do |jogo| %>
+                <li>
+                  <ul >
+                    <% jogo.each do |numero| %>
+                    <li id="jogos-gerados-ruby">
+                      <%= numero %>
+                      <% end %>
+                    </li>
+                  </ul>
+                </li>
+              <% end %>
+            </ol>
+            <h1 class="resultado-apostas-geradas-estatisticas"><%= @valor %></h1>
+            <h1 class="resultado-apostas-geradas-estatisticas"><%= @chance_printada %></h1>
+          </div>
         </div>
 
 
@@ -496,7 +517,11 @@
 
       </form>
     </div>
-    <div class="divulgacao">
+    <div>
+      <div class="divulgacao">
+      </div>
+      <div class="divulgacao">
+      </div>
     </div>
   </div>
 </div>

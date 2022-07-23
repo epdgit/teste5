@@ -112,7 +112,12 @@ function opcoesBolao() {
     };
     seletorApostadores.innerHTML = opcoesDeApostadores; //seletor de apostadores criado
 
-
+    // ALTERANDO O FORM PARA CRIAR BOLÃO NO MÉTODO POST
+    document.getElementById("teste").setAttribute("method", "POST");
+    document.getElementById("teste").setAttribute("action", "");
+    
+    // RETIRANDO DADOS CRIADOS DAS APOSTAS GERADAS NA PRÓPRIA HOME
+    document.getElementById("apostas-geradas").remove()
 
   } else if (fazerBolaoNao.checked) {
     document.getElementById("totalizador_de_apostas_sem_bolao").setAttribute("style", "")
@@ -128,6 +133,10 @@ function opcoesBolao() {
     //FAZENDO O CHECK DE TODOS PAGOS DESAPARECER SE FOR ESCOLHIDO NÃO FAZER O BOLÃO
     document.getElementById("todos_pagos").checked = false
 
+    // ALTERANDO O FORM PARA TIRAR MÉTODO POST (CRIADO QUANDO DO BOLÃO)
+    document.getElementById("teste").removeAttribute("method");
+    document.getElementById("teste").setAttribute("action", "/");
+    
   };
 };
 
@@ -251,6 +260,8 @@ function trocarQuantidadeCampos() {
   var blnChecked = document.getElementById("todos_pagos");
   blnChecked.checked = false; // PASSA PARA MARCADOR TODOS PAGOS PARA FALSO QUANDO TROCA A QUANTIDADE DE APOSTADORES
 }
+
+
 // ESSA FUNÇÃO RENDERIZA O SEGUINTE CÓDIGO:
 // <div id='cada_cota'>
 //   <div class="form-group nome-apostador">
@@ -296,7 +307,11 @@ function trocarQuantidadeCampos() {
 //   }
 // }
 
-
+// function trocarIdDiv() {
+//   document.getElementById("apostas-geradas-fim").setAttribute("style", "")
+// }
+// document.getElementById("").setAttribute("style", "display: none")
+// document.getElementById("divDoBolao").setAttribute("style", "")
 
 
 
@@ -343,6 +358,7 @@ export { checaPagamentos };
 export { trocarQuantidadeCampos };
 export { quotasTotais };
 export { totalApostas };
+// export { trocarIdDiv };
 
 
 
