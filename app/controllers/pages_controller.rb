@@ -91,6 +91,8 @@ class PagesController < ApplicationController
       formato_brasil.gsub!("*",",")
       @valor = "Valor: #{formato_brasil}"
 
+      @id_div_apostas = "apostas-geradas"
+
       chance = modalidade[:probabilidade][numeros_cada_aposta - indice_corretor]/apostas_desejadas
       @chance_printada = "Sua chance será de 1 em #{chance.to_s.reverse.scan(/.{1,3}/).join('.').reverse}"
     end
