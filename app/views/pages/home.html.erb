@@ -58,7 +58,7 @@
             </div>
 
             <div class="quantidade-numeros">
-              <label for="numeros_na_aposta">Quantidade de números por aposta: </label>
+              <label for="numeros_na_aposta">Números por aposta: </label>
               <select form="teste" name="quantidadeNumeros" class="form-control" id="opcoesDaAposta"  required >
                   <%# <option value=""></option>    %>
               </select>
@@ -73,12 +73,9 @@
               </select>  
             </div>
 
-            <div class="data">
-              <label for="arrival">Data do sorteio (opcional): </label> <!-- é o rótulo que vem sobre o campo de input -->
-              <input type="date" min="<%= Time.now.strftime("%Y-%m-%d") %>" name="data" class="form-control testando-shadow optional" > <!-- tipo 'date' vai criar calendário no form; mas esse calendário só funciona no chrome; 'for' do label e 'name' do input devem casar -->
-            </div>
 
-            <div>
+
+            <div class="organizar-bolao">
               <fieldset>
 
                   <legend>Organizar bolão? (opcional) </legend>
@@ -107,6 +104,8 @@
             </div>
           </div> %>
 
+
+
           <div id="totalizador_de_apostas_sem_bolao" style="">
             <p id="teste_valor_total">Valor total da(s) aposta(s):</p>
             <p id="teste_total_apostas"> </p>
@@ -115,36 +114,56 @@
 
           
           <div id="divDoBolao" style="display: none">
-            <div class="apostadores">
-              <div class="apostadores-quantidade">
-                <label for="quantidadeApostadores2">Quantidade de apostadores (2 a 100): </label>
-                <%# <input id="quantidadeApostadores" name="quatidadeApostadores" type="number" min="2" max="100" ><br> %>
+              <div class="apostadores">
+                <div class="apostadores-quantidade">
+                  <label for="quantidadeApostadores2">Quantidade de apostadores (2 a 100): </label>
+                  <%# <input id="quantidadeApostadores" name="quatidadeApostadores" type="number" min="2" max="100" ><br> %>
 
-        <%# TESTANDO NOVO SELETOR %>
-                <select form="teste" name="quantidadeApostadores2" class="form-control" id="quantidadeApostadores2"  > <%# fazer o required ativar aqui!!; onchange="trocarQuantidadeCampos()"  %>
-                    <%# <option value=></option>    %>
-                </select>
+          <%# TESTANDO NOVO SELETOR %>
+                  <select form="teste" name="quantidadeApostadores2" class="form-control" id="quantidadeApostadores2"  > <%# fazer o required ativar aqui!!; onchange="trocarQuantidadeCampos()"  %>
+                      <%# <option value=></option>    %>
+                  </select>
 
+                </div>
+
+                <div class="data">
+                  <label for="arrival">Data do sorteio (opcional): </label> <!-- é o rótulo que vem sobre o campo de input -->
+                  <input type="date" min="<%= Time.now.strftime("%Y-%m-%d") %>" name="data" class="form-control testando-shadow optional" > <!-- tipo 'date' vai criar calendário no form; mas esse calendário só funciona no chrome; 'for' do label e 'name' do input devem casar -->
+                </div>
               </div>
 
 
-              <div>
-                <fieldset>
 
-                    <legend id="legenda-quotas">Informar quotas por apostador (0,5 a 20)? (somente em caso de quotas distintas por apostador) </legend>
-                      <div class="radio-inline">
-                        <input type='radio' id="bolaoQuotasNao" name='bolaoQuotas' value='nao'  checked>
-                        <label class="label-sim-nao" for="bolaoQuotas">Não</label><br>
-                      </div>
-                      <div class="radio-inline">
-                        <input type='radio' id="bolaoQuotasSim" name='bolaoQuotas' value='sim' >
-                        <label class="label-sim-nao" for="bolaoQuotas">Sim</label><br>
-                      </div>
-                </fieldset>
-              </div>
-            </div>
+
 
             <div id="todos_apostadores">
+              <div class="opcoes">
+                <div>
+                  <fieldset>
+
+                      <legend id="legenda-quotas">Quotas distintas por apostador? (opcional) </legend>
+                        <div class="radio-inline">
+                          <input type='radio' id="bolaoQuotasNao" name='bolaoQuotas' value='nao'  checked>
+                          <label class="label-sim-nao" for="bolaoQuotas">Não</label><br>
+                        </div>
+                        <div class="radio-inline">
+                          <input type='radio' id="bolaoQuotasSim" name='bolaoQuotas' value='sim' >
+                          <label class="label-sim-nao" for="bolaoQuotas">Sim</label><br>
+                        </div>
+                  </fieldset>
+                </div>
+
+                <div id="div_todos_pagos">
+                  <input type='checkbox' id='todos_pagos' > Todas as quotas pagas
+                </div>
+              </div>
+
+
+
+        <%# APOSTADOR NOVO - CRIANDO CAMPOS AUTOMATIZADOS %>
+              <div id="campos_bolao">
+              </div>
+
               <div id="totais">
                 <div id="totalizador_de_apostas">
                   <p class="texto-total">Valor total da(s) aposta(s):</p>
@@ -155,14 +174,6 @@
                   <p id="total_quotas"></p>
                 </div>
               </div>
-              <div id="div_todos_pagos">
-                <input type='checkbox' id='todos_pagos' > Todas as quotas pagas
-              </div>
-
-        <%# APOSTADOR NOVO - CRIANDO CAMPOS AUTOMATIZADOS %>
-              <div id="campos_bolao">
-              </div>
-
 
 
 

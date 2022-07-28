@@ -213,7 +213,7 @@
 .agrupando-campos {
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: center;
   padding-top: 15px;
   padding-bottom: 10px;
 }
@@ -315,10 +315,13 @@ fieldset {
 
 #totalizador_de_apostas {
   display: flex;
+  justify-content: center;
 }
 
 #totalizador_de_apostas_sem_bolao {
   display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
 }
 
 #total_apostas {
@@ -337,6 +340,9 @@ fieldset {
 
 #totais {
   display: flex;
+  justify-content: center;
+  margin-bottom: 25px;
+  margin-top: 25px;
 }
 
 .texto-total {
@@ -420,14 +426,28 @@ fieldset {
   margin-top: 30px;
 }
 
+.opcoes {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+#legenda-quotas {
+  width: 170px;
+}
 // .modalidade {
 //   margin-left: 70px;
 // }
 
-// .quantidade-numeros {
-//   margin-left: 50px;
-// }
+.quantidade-numeros {
+  margin-left: 70px;
+}
 
+
+.organizar-bolao {
+  margin-left: 75px;
+}
 // .quantidade-apostas {
 //   margin-left: 70px;
 // }
