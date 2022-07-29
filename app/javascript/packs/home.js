@@ -98,6 +98,10 @@ function opcoesBolao() {
     document.getElementById("totalizador_de_apostas_sem_bolao").setAttribute("style", "display: none")
     document.getElementById("divDoBolao").setAttribute("style", "")
     document.getElementById("quantidadeApostadores2").required = true
+    // document.getElementById("bolaoSim").setAttribute("checked", "checked")
+    // document.getElementById("bolaoNao").checked = false;
+    // fazerBolaoNao.removeAttribute("checked")
+
 
     //criando seletores para o número de apostadores do bolão:
     var arrayDeCem = Array.from(Array(100).keys()); // cria array de 0 a 99
@@ -114,7 +118,7 @@ function opcoesBolao() {
 
     // ALTERANDO O FORM PARA CRIAR BOLÃO NO MÉTODO POST
     document.getElementById("teste").setAttribute("method", "POST");
-    document.getElementById("teste").setAttribute("action", "");
+    document.getElementById("teste").setAttribute("action", "/apostas");
     
     // RETIRANDO DADOS CRIADOS DAS APOSTAS GERADAS NA PRÓPRIA HOME
     document.getElementById("apostas-geradas").remove()
