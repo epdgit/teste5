@@ -43,6 +43,7 @@
       </div>
 
       <form action="/"  class="form-inline" id="teste"> <!-- método GET ou POST: method="POST"-->
+        <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>"> <%# essa linha serve para o método POST, onde é exigido que haja um token de autenticidade %>
         <%# <input type="hidden" name="authenticity_token" value="6mcCvU7ZazpIBcJTptw/8y4EucmzccFWli7tFUzX6IJEx8wq6PFC7m4rA1Jy+W4YW1hlhYhSOyhZefWtOM5ofQ=="> %>
         <div class="form-group">
           <div class="agrupando-campos">

@@ -407,6 +407,10 @@ fieldset {
   text-align: center;
 }
 
+#ul_jogos-gerados-ruby {
+  padding-left: 9px;
+}
+
 .resultado-apostas-geradas {
   color: #204A65;
   font-weight: 700;
@@ -448,6 +452,55 @@ fieldset {
 .organizar-bolao {
   margin-left: 75px;
 }
+
+#apostadores_bolao_gerado_ruby {
+  list-style: none;
+  padding-left: 4px;
+  color: #204A65;
+  font-weight: 700;
+  font-size: 17px;
+  font-family: 'Rokkitt', serif;
+  width: 445px;
+}
+
+#relatorio_apostadores {
+  color: #204A65;
+  // text-align: center;
+  /* margin-left: 10px; */
+  font-weight: 700;
+  font-family: 'Rokkitt', serif;
+  text-decoration: underline red;
+  margin-top: 45px;
+  margin-bottom: 20px;
+  margin-left: 50px;
+
+}
+
+#data_bolao {
+  // text-align: center;
+  margin-left: 25px;
+  color: #204A65;
+  font-family: 'Rokkitt', serif;
+}
+
+.test_drive {
+  display: flex;
+  // align-items: center;
+  // justify-content: flex-start;
+  // flex-wrap: wrap;
+}
+
+#ol_apostadores_bolao_gerado_ruby {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+ol {
+  font-size: 1em;
+}
+
+
 // .quantidade-apostas {
 //   margin-left: 70px;
 // }
