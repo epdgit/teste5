@@ -197,7 +197,21 @@ import { checaPagamentos } from './home';
 import { trocarQuantidadeCampos } from './home';
 import { quotasTotais } from './home';
 import { totalApostas } from './home';
+import { salvarPDF } from './apostas';
 // import { trocarIdDiv } from './home';
+
+
+var salvaPDF = document.getElementById("meu-pdf");
+if(salvaPDF) { // SÓ EXECUTA A FUNÇÃO SE ESTIVER NA PÁGINA APOSTAS
+  salvaPDF.addEventListener("click", () => {
+    salvarPDF()
+  });
+}
+
+
+
+
+
 
 
 var sorteioEscolhido = document.getElementById("sorteio");
