@@ -19,6 +19,8 @@ function salvarPDF() {
       doc.setTextColor("#204A65");
       doc.text(width/2, 202, "eTARTA.com.br", {align:  'center'});
       
+      // doc.addImage("")
+
       //salvando o pdf
       doc.save('Minhas_apostas.pdf');
     },
