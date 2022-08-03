@@ -121,8 +121,11 @@ function opcoesBolao() {
     document.getElementById("teste").setAttribute("action", "/apostas");
     
     // RETIRANDO DADOS CRIADOS DAS APOSTAS GERADAS NA PRÓPRIA HOME
-    document.getElementById("apostas-geradas").remove()
-
+    var retirar = document.getElementById("apostas-geradas")
+    if (retirar) {
+      retirar.remove()
+    };
+    
   } else if (fazerBolaoNao.checked) {
     document.getElementById("totalizador_de_apostas_sem_bolao").setAttribute("style", "")
     document.getElementById("divDoBolao").setAttribute("style", "display: none")

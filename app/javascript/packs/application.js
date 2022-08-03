@@ -209,80 +209,99 @@ if(salvaPDF) { // SÓ EXECUTA A FUNÇÃO SE ESTIVER NA PÁGINA APOSTAS
 }
 
 
-
-
-
-
-
 var sorteioEscolhido = document.getElementById("sorteio");
-sorteioEscolhido.addEventListener("change", () => {
-  trocarSeletorNumeros()
-  totalApostas()
-});
+if (sorteioEscolhido) {
+  sorteioEscolhido.addEventListener("change", () => {
+    trocarSeletorNumeros()
+    totalApostas()
+  });
+}
 
 var numerosAposta = document.getElementById("opcoesDaAposta");
-numerosAposta.addEventListener("change", () => {
-  totalApostas()
-})
+if (numerosAposta) {
+  numerosAposta.addEventListener("change", () => {
+    totalApostas()
+  })
+}
 
 var quantidadeCartoes = document.getElementById("quantidade");
-quantidadeCartoes.addEventListener("change", () => {
-  totalApostas()
-})
+if (quantidadeCartoes) {
+  quantidadeCartoes.addEventListener("change", () => {
+    totalApostas()
+  })
+}
 
 
 var fazerBolaoSim = document.getElementById("bolaoSim");
 var fazerBolaoNao = document.getElementById("bolaoNao");
-fazerBolaoSim.addEventListener("click", () => {
-  opcoesBolao()
-});
-fazerBolaoNao.addEventListener("click", () => {
-//  trocarQuantidadeCampos() // testar se desaparecem os campos
-  opcoesBolao()
-  quotasTotais() //TESTAR SE FICA ZERADO O CONTADOR DE QUOTAS
-});
+if (fazerBolaoSim) {
+  fazerBolaoSim.addEventListener("click", () => {
+    opcoesBolao()
+  });
+}
+if (fazerBolaoNao) {
+  fazerBolaoNao.addEventListener("click", () => {
+  //  trocarQuantidadeCampos() // testar se desaparecem os campos
+    opcoesBolao()
+    quotasTotais() //TESTAR SE FICA ZERADO O CONTADOR DE QUOTAS
+  });
+}
 
 var camposBolao = document.getElementById("quantidadeApostadores2");
-camposBolao.addEventListener("change", () => {
-  trocarQuantidadeCampos()
-  quotasTotais() // faz a soma das quotas quando informado o nº de apostadores
-});
+if (camposBolao) {
+  camposBolao.addEventListener("change", () => {
+    trocarQuantidadeCampos()
+    quotasTotais() // faz a soma das quotas quando informado o nº de apostadores
+  });
+}
 
 
 
 var bolaoQuotasSim = document.getElementById("bolaoQuotasSim");
 var bolaoQuotasNao = document.getElementById("bolaoQuotasNao");
-bolaoQuotasSim.addEventListener("click", () => {
-  opcoesQuotas()
-});
-bolaoQuotasNao.addEventListener("click", () => {
-  opcoesQuotas()
-  quotasTotais() // faz a soma das quotas quando informado que não quer informar quotas
-});
+if (bolaoQuotasSim) {
+  bolaoQuotasSim.addEventListener("click", () => {
+    opcoesQuotas()
+  });
+}
+if (bolaoQuotasNao) {
+  bolaoQuotasNao.addEventListener("click", () => {
+    opcoesQuotas()
+    quotasTotais() // faz a soma das quotas quando informado que não quer informar quotas
+  });
+}
 
 
 var blnChecked = document.getElementById("todos_pagos")
-blnChecked.addEventListener("click", () => {
-  selectAll()
-});
+if (blnChecked) {
+  blnChecked.addEventListener("click", () => {
+    selectAll()
+  });
+}
 
-var input = document.getElementById("campos_bolao");
-input.addEventListener("click", () => {
-  quotasTotais()
-});
+var inputBolao = document.getElementById("campos_bolao");
+if (inputBolao) {
+  inputBolao.addEventListener("click", () => {
+    quotasTotais()
+  });
+}
 
 
 
 var input = document.getElementById("testesoma");
-input.addEventListener("click", () => {
-  logKey()
-});
+if (input) {
+  input.addEventListener("click", () => {
+    logKey()
+  });
+}
 
 
 var todosPagos = document.getElementById("todos_apostadores");
-todosPagos.addEventListener("click", () => {
-  checaPagamentos()
-});
+if (todosPagos) {
+  todosPagos.addEventListener("click", () => {
+    checaPagamentos()
+  });
+}
 
 // var botao = document.getElementById("botao-apostas");
 // botao.addEventListener("click", () => {
