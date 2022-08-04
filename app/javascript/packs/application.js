@@ -200,6 +200,14 @@ import { totalApostas } from './home';
 import { salvarPDF } from './apostas';
 // import { trocarIdDiv } from './home';
 
+// Dando relood na volta à página Home:
+var reloadRoot = document.getElementById("botao-root");
+if(reloadRoot) {
+  reloadRoot.addEventListener("click", () => {
+    location.assign('/'); // faz a página para a qual vai dar um relood, tornando possível a execução dos arquivos javascript
+  });
+}
+
 
 var salvaPDF = document.getElementById("meu-pdf");
 if(salvaPDF) { // SÓ EXECUTA A FUNÇÃO SE ESTIVER NA PÁGINA APOSTAS
