@@ -44,12 +44,17 @@ function salvarPDF() {
 
   var doc = new jsPDF({unit: 'pt', format: [1400, 2000], orientation: 'portrait' });
   var printar = document.getElementById("printar_pdf")
+  var printarClonado = printar.cloneNode(true) // clonando o elemento acima para alterar suas confirgurações de largura
+  // var widthPDF = doc.internal.pageSize.getWidth();
+  printarClonado.style.width = "1400px";
+  // printarClonado.setAttribute("style", `width: ${1200}`)
   // const html2canvas = require('html2canvas');
   // window.html2canvas = html2canvas;
   window["html2canvas"] = html2canvas;
-  doc.html(printar, {
+  doc.html(printarClonado, {
     autoPaging: 'text',
     margin: [120, 0, 120, 0],
+    html2canvas: { scale: 1.0}, //  html2canvas: { scale: 1.0, ignoreElements: element => element.id === autoTableConfig?.elementId },
     callback: function (doc) {
 
       //criando um texto eTarta.com.br e centralizando o conteúdo
