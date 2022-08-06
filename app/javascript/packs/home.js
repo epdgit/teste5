@@ -369,3 +369,5 @@ export { totalApostas };
 
 
 
+// var num2 = 400000.00.toFixed(2).toString().replace(".", ',') // esse fixa o decimal com vírgula
+// num2.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".") // esse separa milhar com "."
