@@ -222,11 +222,15 @@ function totalApostas() {
 
   // INSERINDO NO TOTALIZADOR BOLÃO
   var inputTotalApostasFim = document.getElementById("total_apostas")
-  inputTotalApostasFim.innerHTML = ("R$ " + valorFinalApostas.toFixed(2)) 
+  var valorFinalComVirgula = valorFinalApostas.toFixed(2).toString().replace(".", ',') // esse fixa o decimal com vírgula
+  var valorFinal = valorFinalComVirgula.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".") // esse separa milhar com "."
+  inputTotalApostasFim.innerHTML = ("R$ " + valorFinal) 
 
   // INSERINDO NO TOTALIZADOR SEM BOLÃO
   var inputTotalApostasFim = document.getElementById("teste_total_apostas")
-  inputTotalApostasFim.innerHTML = ("R$ " + valorFinalApostas.toFixed(2)) 
+  var valorFinalComVirgula = valorFinalApostas.toFixed(2).toString().replace(".", ',') // esse fixa o decimal com vírgula
+  var valorFinal = valorFinalComVirgula.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".") // esse separa milhar com "."
+  inputTotalApostasFim.innerHTML = ("R$ " + valorFinal) 
 
 
 }
