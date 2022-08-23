@@ -1,0 +1,154 @@
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<h1>FUNCIONANDO</h1>
+
+
+<%# <ul id="ul_jogos-gerados-ruby"> %>
+<form action="/sorte"  class="form-inline" id="numeroSorte" name="nsorte"> <!-- método GET ou POST: method="POST"-->
+ <%#  <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>"> <%# essa linha serve para o método POST, onde é exigido que haja um token de autenticidade %>
+  <%# <input type="hidden" name="authenticity_token" value="6mcCvU7ZazpIBcJTptw/8y4EucmzccFWli7tFUzX6IJEx8wq6PFC7m4rA1Jy+W4YW1hlhYhSOyhZefWtOM5ofQ=="> %>
+  <div class="form-group">
+  
+    <%# <ul>
+      
+      <% jogo.each do |numero| %
+      <li id="jogos-gerados-ruby-numeros-sorte">
+        <a ><%= numero % </a>
+        
+        <% end %
+      </li>
+
+      <li id="jogos-gerados-ruby-numeros-sorte">100</li>
+    </ul> %>
+
+    <ul>
+      <% jogo = (1..60).to_a %>
+      <% jogo.each do |numero| %>
+      <li id="n<%= numero %>" class="numero-sorte jogos-gerados-ruby-numeros-sorte" value=<%= "#{numero}" %>> 
+        <%= numero %>
+        <% end %>
+      </li>
+    </ul>
+
+
+
+  <input form="numeroSorte" id="numeros-da-sorte-fim" name="meusNumeros" type="text" class="form-control" value="" >
+
+
+
+     <%# <select form="nsorte" name="meusnumeros" class="form-control" > %>
+    <%# <select form="teste" name="sorteio2" class="form-control" id="sorteio"  required >
+      <option id="numeros-da-sorte-fim" value="10"></option>
+    </select> %>
+
+    <%# <ul>
+      <% jogo = (1..60).to_a 
+      <% jogo.each do |numero| 
+      <li id="jogos-gerados-ruby-numeros-sorte">
+      <label for="number"><%= numero </label><br>
+      <input type="number" placeholder="<%= numero " value="<%= numero ">
+        <%= numero 
+        <% end 
+      </li>
+    </ul> %>
+    <button type="submit" id="meus-numeros-da-sorte" class=" btn btn-primary btn-lg" ng-click="vm.incluirAposta()"><span class="glyphicon glyphicon-shopping-cart">
+    </span> Checar Meus Números</button>
+  </div>
+</form>
+
+<button type="button" id="limpar" onclick="limpar()" class="btn btn-primary">Limpar Marcações</button>
+
+
+
+<p>
+<%# <% if @numeros_da_sorte %>AQUI
+  <%= @numeros_da_sorte %>
+<%# <% end %>
+<%=  @teste %>
+<%=  @teste2 %>
+<%= @teste3 %>
+ALI
+</p>
+<h1> <%= @abacate %></h1>
+<h2><%= "22".to_i %></h2>
+
+
+
+
+<script>
+
+var arrayDaSorte = []
+window.onclick = e => {
+    var tag_sorte = e.target.tagName
+    if ((tag_sorte == "LI") && (e.target.classList.contains("selected") == false) && (arrayDaSorte.length < 6)) {
+      // var idSelecionado = e.target.id
+      var numeroSorte = e.target.value
+      arrayDaSorte.push(numeroSorte)
+      e.target.classList.add("selected");
+    } else if (tag_sorte == "LI" && e.target.classList.contains("selected") == true) {
+      var retirarNumeroSorte = e.target.value
+      for( var i = 0; i < arrayDaSorte.length; i++){                              
+        if ( arrayDaSorte[i] === retirarNumeroSorte) { 
+            arrayDaSorte.splice(i, 1); 
+            i--; 
+        }
+      e.target.classList.remove("selected");
+    }
+  }
+  arrayDaSorte.sort()
+  document.getElementById("numeros-da-sorte-fim").setAttribute("value", `${arrayDaSorte}`)
+  // document.getElementById("numeros-da-sorte-fim").innerHTML = arrayDaSorte
+}
+
+function limpar() {
+  var numerosTodos = document.getElementsByClassName("numero-sorte");
+  var intLength = numerosTodos.length;
+  var total = 0;
+  for(var i = 0; i < intLength; i++) {
+        var check_numero = numerosTodos[i];
+        if (check_numero.classList.contains("selected") == true) {
+          check_numero.classList.remove("selected");
+        };
+  };
+  if (arrayDaSorte) {
+    arrayDaSorte = []
+  }
+  document.getElementById("numeros-da-sorte-fim").setAttribute("value", "");
+}
+// const elemento = document.getElementById("elemento");
+
+// if (elemento.classList) elemento.classList.add("red");
+// else elemento.className += " red";
+
+// function numerosDaSorte() {
+//   var array = []
+//   var numerosTodos = document.getElementsByClassName("numero-sorte");
+//   var intLength = numerosTodos.length;
+//   var total = 0;
+//   for(var i = 0; i < intLength; i++) {
+//         var check_numero = numerosTodos[i];
+//         if (check_numero.classList.contains("selected") == true) {
+//           array.push(check_numero.value)
+//           total += 1
+//         }
+//   };
+//   if (total > 0) {
+//   document.getElementById("demo").innerHTML = array } else {
+//   document.getElementById("demo").innerHTML = "NÃO"};
+// }
+
+
+
+
+
+</script>
