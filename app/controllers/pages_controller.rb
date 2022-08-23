@@ -259,11 +259,23 @@ class PagesController < ApplicationController
         @valor_por_quota = "Valor da quota (aproximado): #{valor_temp_formato_brasil[0..(indice_da_virgula + 4)]}"
       end
     end
-
-
-
-
   end
+
+
+  def sorte
+    @abacate = "ABACATE"
+    @array_sorte = []
+    @conferir_sorte = []
+    numeros = params[:meusNumeros]
+    if numeros
+      @numeros_da_sorte = numeros.split(/,/).map(&:to_i).sort # SE FUNCIONAR Isso cria um array com os números selecionados
+    end
+    # @teste = request[:meusNumeros].split(/,/).map(&:to_i).sort
+    # @teste3 = params[:meusNumeros].present?
+    
+    # {"meusNumeros"=>"1,2,25,26,3,4"}
+  end
+
 
   # private
 

@@ -411,6 +411,35 @@ fieldset {
   padding-left: 9px;
 }
 
+
+.jogos-gerados-ruby-numeros-sorte {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  margin: 8px 5px;
+  background: #92a7ab;
+  // background: #0369b9;
+  padding: 10px 12px;
+  border-radius: 50%;
+  font-family: 'Rokkitt', serif;
+  color: #fff;
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+}
+
+.selected {
+  background: #0369b9;
+}
+// #jogos-gerados-ruby-numeros-sorte a {
+//   color: #fff;
+// }
+
+// #jogos-gerados-ruby-numeros-sorte a:hover {
+//   text-decoration: none;
+// }
+
 .resultado-apostas-geradas {
   color: #204A65;
   font-weight: 700;
