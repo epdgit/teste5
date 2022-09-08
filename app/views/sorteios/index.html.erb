@@ -1,0 +1,20 @@
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<h1>INDEX FUNCIONANDO (ROOT/sorteios)</h1>
+
+<h1>TOTAL DE SORTEIOS: <%= @sorteios.size %></h1> <%# outras opções .length OU .count   TESTAR %>
+<ul>
+  <% @sorteios.each do |sorteio|  %>
+    <li><%= "#{sorteio.concurso}; data: #{sorteio.data}; números: #{sorteio.numeros}" %></li>
+  <% end %>
+</ul>

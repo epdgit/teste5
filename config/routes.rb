@@ -3,4 +3,5 @@ Rails.application.routes.draw do
   root to: 'pages#home'
   post 'apostas', to: 'pages#apostas'
   get 'sorte', to: 'pages#sorte'
+  resources :sorteios
 end
