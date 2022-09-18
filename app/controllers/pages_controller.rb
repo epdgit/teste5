@@ -277,6 +277,8 @@ class PagesController < ApplicationController
   end
 
 
+
+
   # private
 
   # def apostas_params
