@@ -17,7 +17,7 @@
 
 
 <ul>
-  <% @sorteios.each do |sorteio|  %>
+  <% @sorteios.reverse().each do |sorteio|  %>
     <li><%= link_to "concurso: #{sorteio.concurso}; data: #{sorteio.data}; números: #{sorteio.numeros}", sorteio_path(sorteio) %></li>
   <% end %>
 </ul>

@@ -263,12 +263,16 @@ class PagesController < ApplicationController
 
 
   def sorte
-    @abacate = "ABACATE"
     @array_sorte = []
     @conferir_sorte = []
     numeros = params[:meusNumeros]
     if numeros
       @numeros_da_sorte = numeros.split(/,/).map(&:to_i).sort # SE FUNCIONAR Isso cria um array com os números selecionados
+      @sorteios = Sorteio.all
+      # @sorteios.each do |sorteio|
+      #   sorteio.numeros
+      # end
+      
     end
     # @teste = request[:meusNumeros].split(/,/).map(&:to_i).sort
     # @teste3 = params[:meusNumeros].present?
