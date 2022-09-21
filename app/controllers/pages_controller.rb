@@ -281,7 +281,24 @@ class PagesController < ApplicationController
   end
 
 
-
+  def conjuntos
+    @sorteios = Sorteio.all
+    contador = 1 
+    @array17 = [] 
+    @array13 = [] 
+    while contador < 18 
+      numeros = @sorteios[- contador].numeros.split(/,/).map {|x| x.to_i} 
+      for x in numeros 
+        @array17 << x 
+        if contador < 14 
+          @array13 << x 
+        end     
+      end   
+      contador += 1 
+    end
+    @array17 = @array17.to_set.to_a.sort
+    @array13 = @array13.to_set.to_a.sort
+  end
 
   # private
 

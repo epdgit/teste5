@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root to: 'pages#home'
   post 'apostas', to: 'pages#apostas'
   get 'sorte', to: 'pages#sorte'
+  get 'conjuntos', to: 'pages#conjuntos'
   # resources :sorteios
 
   get 'sorteios', to: 'sorteios#index'
