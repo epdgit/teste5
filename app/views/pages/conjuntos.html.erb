@@ -14,8 +14,8 @@
 
 
 <%# <ul id="ul_jogos-gerados-ruby"> %>
-<form action="/sorte"  class="form-inline" id="numeroSorte" name="nsorte"> <!-- método GET ou POST: method="POST"-->
- <%#  <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %> <%# essa linha serve para o método POST, onde é exigido que haja um token de autenticidade %>
+<form action="/conjuntos"  class="form-inline" id="numeroSorte2" name="nsorte2"> <!-- método GET ou POST: method="POST"-->
+  <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>"><%# essa linha serve para o método POST, onde é exigido que haja um token de autenticidade %>
   <%# <input type="hidden" name="authenticity_token" value="6mcCvU7ZazpIBcJTptw/8y4EucmzccFWli7tFUzX6IJEx8wq6PFC7m4rA1Jy+W4YW1hlhYhSOyhZefWtOM5ofQ=="> %>
   <div class="form-group">
   
@@ -42,11 +42,27 @@
 
 
 
-  <input form="numeroSorte" id="numeros-da-sorte-fim" name="meusNumeros" type="text" class="form-control" value="" style="display: none" > <%# style="display: none"  %>
+  <input form="numeroSorte2" id="numeros-da-sorte-fim" name="meusNumeros2" type="text" class="form-control" value=""  > <%# style="display: none"  %>
 
 
 
-     <%# <select form="nsorte" name="meusnumeros" class="form-control" > %>
+  <div class="quantidade-numeros">
+    <label for="numeros_na_aposta2">Números por aposta: </label>
+    <select form="numeroSorte2" name="quantidadeNumeros2" class="form-control" id="opcoesDaAposta2"  required >
+        <%# <option value=""></option>    %>
+    </select>
+  </div>
+
+
+  
+  <div class="quantidade-apostas">
+    <label for="quantidade2">Quantidade de apostas: </label>
+    <select form="numeroSorte2" name="quantidadeJogos2" class="form-control" id="quantidade2"  required >
+      <%# <option value=""></option> %>
+    </select>  
+  </div>
+
+     <%# <select form="2" name="meusnumeros" class="form-control" > %>
     <%# <select form="teste" name="sorteio2" class="form-control" id="sorteio"  required >
       <option id="numeros-da-sorte-fim" value="10"></option>
     </select> %>
@@ -98,7 +114,9 @@
  <%= @array13 %>
 </p>
 
-
+<p>
+  <%= @numeros_da_sorte %>
+</p>
 
 
 
@@ -110,13 +128,13 @@ window.onclick = e => {
     var tag_sorte = e.target.tagName
     if ((tag_sorte == "LI") && (e.target.classList.contains("selected") == false)) {
       // var idSelecionado = e.target.id
-      var numeroSorte = e.target.value
-      arrayDaSorte.push(numeroSorte)
+      var numeroSorte2 = e.target.value
+      arrayDaSorte.push(numeroSorte2)
       e.target.classList.add("selected");
     } else if (tag_sorte == "LI" && e.target.classList.contains("selected") == true) {
-      var retirarNumeroSorte = e.target.value
+      var retirarNumeroSorte2 = e.target.value
       for( var i = 0; i < arrayDaSorte.length; i++){                              
-        if ( arrayDaSorte[i] === retirarNumeroSorte) { 
+        if ( arrayDaSorte[i] === retirarNumeroSorte2) { 
             arrayDaSorte.splice(i, 1); 
             i--; 
         }
@@ -128,11 +146,40 @@ window.onclick = e => {
     var botao = document.getElementById("meus-numeros-da-sorte")
     var mensagemAlerta = document.getElementById("alerta")
     if (arrayDaSorte.length > 6) {
+
+      //POSSIBILIDADE DE NÚMEROS POR APOSTA
+      var numerosPossiveis =  [6,7,8,9,10,11,12,13,14,15]
+        //criando seletores para números a apostar
+      var seletorNumeros = document.getElementById("opcoesDaAposta2");
+      var length = numerosPossiveis.length;
+      var opcoesDeNumeros = "";
+      var quantidadeMarcada = arrayDaSorte.length
+      var arrayTemp = []
+      for (var i = 0; i < length; i++) { //aqui, i é o elemento do array
+        if (quantidadeMarcada >= numerosPossiveis[i]) {
+          arrayTemp.push(numerosPossiveis[i])
+        }
+      };
+      var len2 = arrayTemp.length
+      for (var i = 0; i < len2; i++) { //aqui, i é o elemento do array
+          opcoesDeNumeros += "<option value='" + numerosPossiveis[i] + "'"+ " >" + numerosPossiveis[i] + "</option>"; 
+      };
+      seletorNumeros.innerHTML = opcoesDeNumeros; //seletor de números a apostas
+      
+
+      
+      //HABILITANDO BOTÃO
       botao.removeAttribute("disabled");
+
+      //REMOVENDO ALERTA
       while (mensagemAlerta.hasChildNodes()) {
         mensagemAlerta.removeChild(mensagemAlerta.firstChild)
       };
     } else {
+      var seletorNumeros = document.getElementById("opcoesDaAposta2");
+      while (seletorNumeros.hasChildNodes()) {
+        seletorNumeros.removeChild(seletorNumeros.firstChild)
+      };
       botao.setAttribute("disabled", "true")
       if (document.getElementById("mensagem-alerta") == null) {
         document.getElementById("alerta").innerHTML =  '<h6 id="mensagem-alerta">Crie seu conjunto com 7 ou mais números! Só então você poderá gerar suas apostas. ☘️</h6>'
@@ -288,6 +335,64 @@ function ultT() {
   }
   document.getElementById("numeros-da-sorte-fim").setAttribute("value", `${arrayDaSorte}`);
 }
+
+
+
+
+
+
+
+//CRIANDO LÓGICA DOS SELETORES QUANTIDADE JOGOS E NÚMEROS POR APOSTA
+
+
+//CALCULANDO FATORIAL
+function calcularFatorial (n) {
+    if (n === 1) {
+        return 1;
+    }
+     
+    return n * calcularFatorial (n - 1);
+}
+
+//CALCULANDO COMBINAÇÕES POSSÍVEIS DO CONJUNTO DE N NÚMEROS TOMADO x A x
+function combinacoesPossiveis (nNumeros, tomadosXaX) {
+  return calcularFatorial(nNumeros)/(calcularFatorial(tomadosXaX)*calcularFatorial(nNumeros-tomadosXaX))
+}
+
+
+
+////
+
+
+// RECUPERANDO ARRAY DA SORTE DIRETO DO FORM (NÃO SEI SE TEM UTILIDADE)
+var conjuntoArraydaSorteDiretoDoForm = document.getElementById("numeros-da-sorte-fim").value.split(",")
+var conjuntoFim = []
+for(var i = 0; i < conjuntoArraydaSorteDiretoDoForm.length; i++) {
+  conjuntoFim.push(parseInt(conjuntoArraydaSorteDiretoDoForm[i])) // convetendo o array de strings para array de integers
+}
+
+
+
+// var diretoDoForm = document.getElementById("numeros-da-sorte-fim")
+// diretoDoForm.addEventListener("change", () => {
+  
+// });
+
+
+// combinacoesPossiveis (arrayDaSorte.length, tomadosXaX)
+
+// QUANTIDADE DE APOSTAS
+var quantidadesPossiveis = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
+//criando seletores para quantidade de apostas
+var seletorQuantidade = document.getElementById("quantidade2");
+// var opcoes2 = '<option value="">Selecione</option>';
+var opcoes2 = '';
+var lengthQuantidade = quantidadesPossiveis.length;
+for (var i = 0; i < lengthQuantidade; i++) { //aqui, i é o elemento do array
+  opcoes2 += "<option value='" + quantidadesPossiveis[i] + "'"+ " >" + quantidadesPossiveis[i] + "</option>"; 
+};
+seletorQuantidade.innerHTML = opcoes2; //quantidade de apostas
+
 
 
 
