@@ -298,6 +298,15 @@ class PagesController < ApplicationController
     end
     @array17 = @array17.to_set.to_a.sort
     @array13 = @array13.to_set.to_a.sort
+
+    # DAQUI PARA BAIXO, SÓ COPIEI DA HOME VIEW
+    apostas_desejadas = params[:quantidadeJogos2].to_i # LANÇAR AQUI QUANTAS APOSTAS VOCÊ DESEJA
+    numeros_cada_aposta = params[:quantidadeNumeros2].to_i
+    numeros = params[:meusNumeros2]
+    if numeros
+      @numeros_da_sorte = numeros.split(/,/).map(&:to_i).sort # SE FUNCIONAR Isso cria um array com os números selecionados
+      
+    end    
   end
 
   # private

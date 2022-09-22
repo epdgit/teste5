@@ -198,6 +198,7 @@ import { trocarQuantidadeCampos } from './home';
 import { quotasTotais } from './home';
 import { totalApostas } from './home';
 import { salvarPDF } from './apostas';
+import { trocarSeletorNumerosConjuntos }  from './conjuntos';
 // import { trocarIdDiv } from './home';
 
 // Dando relood na volta à página Home:
@@ -310,6 +311,16 @@ if (todosPagos) {
     checaPagamentos()
   });
 }
+
+
+var conjuntoArraydaSorteDiretoDoForm = document.getElementById("numeros-da-sorte-fim2")
+if (conjuntoArraydaSorteDiretoDoForm) {
+  conjuntoArraydaSorteDiretoDoForm.addEventListener("change", () => {
+    trocarSeletorNumerosConjuntos()
+  });
+}
+
+
 
 // var botao = document.getElementById("botao-apostas");
 // botao.addEventListener("click", () => {
