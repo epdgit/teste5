@@ -42,13 +42,13 @@
 
 
 
-  <input form="numeroSorte2" id="numeros-da-sorte-fim2" name="meusNumeros2" type="text" class="form-control" oninput="trocarSeletorNumerosConjuntos()" value=""  > <%# style="display: none"  %>
+  <input form="numeroSorte2" id="numeros-da-sorte-fim2" name="meusNumeros2" type="text" class="form-control" oninput="trocarSeletorNumerosConjuntos()" value="" style="display: none" > <%# style="display: none"  %>
 
 
 
   <div class="quantidade-numeros">
     <label for="numeros_na_aposta2">Números por aposta: </label>
-    <select form="numeroSorte2" name="quantidadeNumeros2" class="form-control" id="opcoesDaAposta2"  required >
+    <select form="numeroSorte2" name="quantidadeNumeros2" class="form-control" id="opcoesDaAposta21"  required >
         <%# <option value=""></option>    %>
     </select>
   </div>
@@ -79,7 +79,7 @@
     </ul> %>
     <div id="div-do-botao-numeros-da-sorte">
       <button type="submit" id="meus-numeros-da-sorte" class=" btn btn-primary btn-lg" disabled="true"><span class="fas fa-sack-dollar"> <%# onclick="testeQuantidade()"  %>
-      </span> Checar Meus Números</button>
+      </span> Gerar Apostas</button>
       <div id="alerta">
         <h6 id="mensagem-alerta">Crie seu conjunto com 7 ou mais números! Só então você poderá gerar suas apostas. ☘️</h6>
       </div>
@@ -159,9 +159,14 @@ window.onclick = e => {
         mensagemAlerta.removeChild(mensagemAlerta.firstChild)
       };
     } else {
-      var seletorNumeros = document.getElementById("opcoesDaAposta2");
+      var seletorNumeros = document.getElementById("opcoesDaAposta21");
       while (seletorNumeros.hasChildNodes()) {
         seletorNumeros.removeChild(seletorNumeros.firstChild)
+      };
+
+      var seletorQuantidade = document.getElementById("quantidade2")
+      while (seletorQuantidade.hasChildNodes()) {
+        seletorQuantidade.removeChild(seletorQuantidade.firstChild)
       };
       botao.setAttribute("disabled", "true")
       if (document.getElementById("mensagem-alerta") == null) {
@@ -171,6 +176,10 @@ window.onclick = e => {
 
     if ((arrayDaSorte.length > 6) && (tag_sorte == "LI")) { // SE VC NÃO USAR ESSA RESTRIÇÃO, O EVENTO CHANGE FICA EM TUDO O TEMPO TODO, CRIANDO SELETORES (options do select)  QUE NUNCA PODEM SER CLICADOS!!!
       document.getElementById("numeros-da-sorte-fim2").dispatchEvent(new Event('change')) // a troca dinâmica do Value não faz por padrão um evento 'change', o que impede um addEventListener, então, tem que fazer isso na marra!
+      var seletorQuantidade = document.getElementById("quantidade2")
+      while (seletorQuantidade.hasChildNodes()) {
+        seletorQuantidade.removeChild(seletorQuantidade.firstChild)
+      };
     }
 }
 
@@ -195,7 +204,12 @@ function limpar() {
   document.getElementById("numeros-da-sorte-fim2").setAttribute("value", "");
 }
 
-
+function limpaQuantidade() {
+  var seletorQuantidade = document.getElementById("quantidade2")
+  while (seletorQuantidade.hasChildNodes()) {
+    seletorQuantidade.removeChild(seletorQuantidade.firstChild)
+  };
+}
 
 
 function maisSaem() {
@@ -219,6 +233,7 @@ function maisSaem() {
   document.getElementById("numeros-da-sorte-fim2").setAttribute("value", `${arrayDaSorte}`);
   // document.getElementById("numeros-da-sorte-fim2").trigger('change')
   document.getElementById("numeros-da-sorte-fim2").dispatchEvent(new Event('change')) // a troca dinâmica do Value não faz por padrão um evento 'change', o que impede um addEventListener, então, tem que fazer isso na marra!
+  limpaQuantidade()
 }
 
 
@@ -241,6 +256,7 @@ function menosSaem() {
   }
   document.getElementById("numeros-da-sorte-fim2").setAttribute("value", `${arrayDaSorte}`);
   document.getElementById("numeros-da-sorte-fim2").dispatchEvent(new Event('change')) // a troca dinâmica do Value não faz por padrão um evento 'change', o que impede um addEventListener, então, tem que fazer isso na marra!
+  limpaQuantidade()
 }
 
 
@@ -264,6 +280,7 @@ function ramalhoDantas() {
   }
   document.getElementById("numeros-da-sorte-fim2").setAttribute("value", `${arrayDaSorte}`);
   document.getElementById("numeros-da-sorte-fim2").dispatchEvent(new Event('change')) // a troca dinâmica do Value não faz por padrão um evento 'change', o que impede um addEventListener, então, tem que fazer isso na marra!
+  limpaQuantidade()
 }
 
 
@@ -295,6 +312,7 @@ function ultD() {
   }
   document.getElementById("numeros-da-sorte-fim2").setAttribute("value", `${arrayDaSorte}`);
   document.getElementById("numeros-da-sorte-fim2").dispatchEvent(new Event('change')) // a troca dinâmica do Value não faz por padrão um evento 'change', o que impede um addEventListener, então, tem que fazer isso na marra!
+  limpaQuantidade()
 }
 
 
@@ -327,64 +345,20 @@ function ultT() {
   }
   document.getElementById("numeros-da-sorte-fim2").setAttribute("value", `${arrayDaSorte}`);
   document.getElementById("numeros-da-sorte-fim2").dispatchEvent(new Event('change')) // a troca dinâmica do Value não faz por padrão um evento 'change', o que impede um addEventListener, então, tem que fazer isso na marra!
+  limpaQuantidade()
 }
 
 
 
 
 
+// // RECUPERANDO ARRAY DA SORTE DIRETO DO FORM (NÃO SEI SE TEM UTILIDADE)
+// var conjuntoArraydaSorteDiretoDoForm = document.getElementById("numeros-da-sorte-fim2").value.split(",")
+// var conjuntoFim = []
+// for(var i = 0; i < conjuntoArraydaSorteDiretoDoForm.length; i++) {
+//   conjuntoFim.push(parseInt(conjuntoArraydaSorteDiretoDoForm[i])) // convetendo o array de strings para array de integers
+// }
 
-
-//CRIANDO LÓGICA DOS SELETORES QUANTIDADE JOGOS E NÚMEROS POR APOSTA
-
-
-//CALCULANDO FATORIAL
-function calcularFatorial (n) {
-    if (n === 1) {
-        return 1;
-    }
-     
-    return n * calcularFatorial (n - 1);
-}
-
-//CALCULANDO COMBINAÇÕES POSSÍVEIS DO CONJUNTO DE N NÚMEROS TOMADO x A x
-function combinacoesPossiveis (nNumeros, tomadosXaX) {
-  return calcularFatorial(nNumeros)/(calcularFatorial(tomadosXaX)*calcularFatorial(nNumeros-tomadosXaX))
-}
-
-
-
-////
-
-
-// RECUPERANDO ARRAY DA SORTE DIRETO DO FORM (NÃO SEI SE TEM UTILIDADE)
-var conjuntoArraydaSorteDiretoDoForm = document.getElementById("numeros-da-sorte-fim2").value.split(",")
-var conjuntoFim = []
-for(var i = 0; i < conjuntoArraydaSorteDiretoDoForm.length; i++) {
-  conjuntoFim.push(parseInt(conjuntoArraydaSorteDiretoDoForm[i])) // convetendo o array de strings para array de integers
-}
-
-
-
-// var diretoDoForm = document.getElementById("numeros-da-sorte-fim2")
-// diretoDoForm.addEventListener("change", () => {
-  
-// });
-
-
-// combinacoesPossiveis (arrayDaSorte.length, tomadosXaX)
-
-// QUANTIDADE DE APOSTAS
-var quantidadesPossiveis = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
-//criando seletores para quantidade de apostas
-var seletorQuantidade = document.getElementById("quantidade2");
-// var opcoes2 = '<option value="">Selecione</option>';
-var opcoes2 = '';
-var lengthQuantidade = quantidadesPossiveis.length;
-for (var i = 0; i < lengthQuantidade; i++) { //aqui, i é o elemento do array
-  opcoes2 += "<option value='" + quantidadesPossiveis[i] + "'"+ " >" + quantidadesPossiveis[i] + "</option>"; 
-};
-seletorQuantidade.innerHTML = opcoes2; //quantidade de apostas
 
 
 

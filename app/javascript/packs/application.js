@@ -199,6 +199,7 @@ import { quotasTotais } from './home';
 import { totalApostas } from './home';
 import { salvarPDF } from './apostas';
 import { trocarSeletorNumerosConjuntos }  from './conjuntos';
+import { trocarSeletorQuantidadeApostasConjuntos } from './conjuntos';
 // import { trocarIdDiv } from './home';
 
 // Dando relood na volta à página Home:
@@ -317,6 +318,13 @@ var conjuntoArraydaSorteDiretoDoForm = document.getElementById("numeros-da-sorte
 if (conjuntoArraydaSorteDiretoDoForm) {
   conjuntoArraydaSorteDiretoDoForm.addEventListener("change", () => {
     trocarSeletorNumerosConjuntos()
+  });
+}
+
+var conjuntosNumerosPorAposta = document.getElementById("opcoesDaAposta21");
+if (conjuntosNumerosPorAposta) {
+  conjuntosNumerosPorAposta.addEventListener("change", () => {
+    trocarSeletorQuantidadeApostasConjuntos()
   });
 }
 
