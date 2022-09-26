@@ -283,9 +283,14 @@ class PagesController < ApplicationController
 
   def conjuntos
     @sorteios = Sorteio.all
-    contador = 1 
+    contador = 1
+    todos_numeros = []
+    @mais_saem = []
+    @menos_saem = [] 
     @array17 = [] 
-    @array13 = [] 
+    @array13 = []
+    
+    # ARRAY DE 13 E DE 17
     while contador < 18 
       numeros = @sorteios[- contador].numeros.split(/,/).map {|x| x.to_i} 
       for x in numeros 
@@ -298,6 +303,17 @@ class PagesController < ApplicationController
     end
     @array17 = @array17.to_set.to_a.sort
     @array13 = @array13.to_set.to_a.sort
+
+    # MAIS SAEM
+    tamanho = @sorteios.size
+    while tamanho > 0
+      conta += 1
+      tamanho -= 1
+    end
+    @teste = conta
+
+
+
 
     # DAQUI PARA BAIXO, SÓ COPIEI DA HOME VIEW
     apostas_desejadas = params[:quantidadeJogos2].to_i # LANÇAR AQUI QUANTAS APOSTAS VOCÊ DESEJA
