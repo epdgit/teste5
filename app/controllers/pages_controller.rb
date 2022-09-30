@@ -283,21 +283,50 @@ class PagesController < ApplicationController
 
   def conjuntos
     @sorteios = Sorteio.all
-    contador = 1 
+    todos_numeros = []
+    @mais_saem = []
+    @menos_saem = [] 
     @array17 = [] 
-    @array13 = [] 
+    @array13 = []
+    @array10 = []
+    
+    # ARRAY DE 13 E DE 17
+    contador = 1
     while contador < 18 
       numeros = @sorteios[- contador].numeros.split(/,/).map {|x| x.to_i} 
       for x in numeros 
         @array17 << x 
         if contador < 14 
-          @array13 << x 
+          @array13 << x
+          if contador < 11
+            @array10 << x
+          end 
         end     
       end   
       contador += 1 
     end
     @array17 = @array17.to_set.to_a.sort
     @array13 = @array13.to_set.to_a.sort
+    @array10 = @array10.to_set.to_a.sort
+    # MAIS SAEM E MENOS SAEM (UTILIZADO PELO JAVA SCRIPT)
+    @sorteios.each { |sorteio|
+      array_temp = sorteio.numeros.split(/,/).map {|x| x.to_i}
+      for x in array_temp
+        todos_numeros << x
+      end
+    }
+
+    hashruby = todos_numeros.group_by { |v| v }.map { |k, v| [k.to_i, v.size] }.to_h
+    hash_final_todos_numeros = hashruby.sort_by {|_key, value| value}.to_h
+    array_ordenado_menos_saem_ate_mais_saem = hash_final_todos_numeros.keys
+    @mais_saem = array_ordenado_menos_saem_ate_mais_saem.last(30).reverse # começa do que mais sai
+    @menos_saem = array_ordenado_menos_saem_ate_mais_saem.first(30) # começa do que menos sai
+
+
+  
+
+
+
 
     # DAQUI PARA BAIXO, SÓ COPIEI DA HOME VIEW
     apostas_desejadas = params[:quantidadeJogos2].to_i # LANÇAR AQUI QUANTAS APOSTAS VOCÊ DESEJA
