@@ -1,12 +1,17 @@
 class PagesController < ApplicationController
-
+  MEGA = {
+    numeros: [6,7,8,9,10,11,12,13,14,15],
+    valor: [4.50, 31.50, 126.00, 378.00, 945.00, 2079.00, 4158.00,7722.00, 13513.50, 22522.50],
+    probabilidade: [50063860, 7151980, 1787995, 595998, 238399, 108363, 54182, 29175, 16671, 10003]
+  };
 
   def home
-    @mega = {
-      numeros: [6,7,8,9,10,11,12,13,14,15],
-      valor: [4.50, 31.50, 126.00, 378.00, 945.00, 2079.00, 4158.00,7722.00, 13513.50, 22522.50],
-      probabilidade: [50063860, 7151980, 1787995, 595998, 238399, 108363, 54182, 29175, 16671, 10003]
-    };
+    @mega = MEGA
+    # @mega = {
+    #   numeros: [6,7,8,9,10,11,12,13,14,15],
+    #   valor: [4.50, 31.50, 126.00, 378.00, 945.00, 2079.00, 4158.00,7722.00, 13513.50, 22522.50],
+    #   probabilidade: [50063860, 7151980, 1787995, 595998, 238399, 108363, 54182, 29175, 16671, 10003]
+    # };
     
     @dupla = {
       numeros: [6,7,8,9,10,11,12,13,14,15],
@@ -324,18 +329,76 @@ class PagesController < ApplicationController
 
 
   
-
-
-
-
     # DAQUI PARA BAIXO, SÓ COPIEI DA HOME VIEW
-    apostas_desejadas = params[:quantidadeJogos2].to_i # LANÇAR AQUI QUANTAS APOSTAS VOCÊ DESEJA
+    @mega = MEGA
+
+    if params[:meusNumeros2]
+      @nome = "Mega-sena"
+      # @conjunto_para_view = params[:meusNumeros2]
+      @conjunto = params[:meusNumeros2].split(/,/).map(&:to_i).sort # SE FUNCIONAR Isso cria um array com os números selecionados
+    end
     numeros_cada_aposta = params[:quantidadeNumeros2].to_i
-    numeros = params[:meusNumeros2]
-    if numeros
-      @numeros_da_sorte = numeros.split(/,/).map(&:to_i).sort # SE FUNCIONAR Isso cria um array com os números selecionados
+    apostas_desejadas = params[:quantidadeJogos2].to_i # LANÇAR AQUI QUANTAS APOSTAS VOCÊ DESEJA
+    indice_corretor = 6
+    @conferir = []   # guardará os jogos que serão feitos, mas em um array
+    # {"meusNumeros2"=>"47,48,49,50,51,52,53", "quantidadeNumeros2"=>"6", "quantidadeJogos2"=>"1", "controller"=>"pages", "action"=>"conjuntos"}
+
+
+
+    # ESSE ALGORITMO ABAIXO  GERA AS APOSTAS COM REPETIÇÃO
+    # while @conferir.count < apostas_desejadas
+    #   aposta = @conjunto.sample(numeros_cada_aposta).sort
+    #   @conferir << aposta
+    #   @conferir.uniq!
+    # end
+
+
+    # ESSE ALGORITMO ABAIXO  GERA AS APOSTAS SEM REPETIÇÃO
+    array_conjunto = []
+    while @conferir.count < apostas_desejadas
+      conjunto_apontado = params[:meusNumeros2].split(/,/).map(&:to_i).sort
+      if array_conjunto.count < numeros_cada_aposta
+        array_conjunto = conjunto_apontado
+      end
+      aposta = array_conjunto.sample(numeros_cada_aposta).sort
+      @conferir << aposta
+      @conferir.uniq!
+      for x in aposta
+        array_conjunto.delete(x)
+      end
+    end
+
+ 
+
+
+    if numeros_cada_aposta > 0
+      valor_total = @mega[:valor][numeros_cada_aposta - indice_corretor]*apostas_desejadas*100
+      formato_money = Money.from_cents(valor_total, "BRL").format
+      formato_brasil = formato_money.gsub!(".","*")
+      if formato_brasil.include? ","
+        formato_brasil.gsub!(",",".")
+      end
+      formato_brasil.gsub!("*",",")
+      @valor = "Valor: #{formato_brasil}"
+
+      @id_div_apostas = "apostas-geradas"
+
+      chance = @mega[:probabilidade][numeros_cada_aposta - indice_corretor]/apostas_desejadas
+      @chance_printada = "Sua chance será de 1 em #{chance.to_s.reverse.scan(/.{1,3}/).join('.').reverse}"
+    end
+
+
+
+
+
+
+    
+    
+    # numeros = params[:meusNumeros2]
+    # if numeros
+    #   @numeros_da_sorte = numeros.split(/,/).map(&:to_i).sort # SE FUNCIONAR Isso cria um array com os números selecionados
       
-    end    
+    # end    
   end
 
   # private
