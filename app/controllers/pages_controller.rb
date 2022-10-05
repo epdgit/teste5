@@ -150,7 +150,7 @@ class PagesController < ApplicationController
       if @aposta[apostador_symbol] != ""
         @array_apostadores << @aposta[apostador_symbol]
       else
-        @array_apostadores << "_____________"
+        @array_apostadores << "____________________"
       end
 
       pagamento_symbol = ("pagamento"+contador.to_s).to_sym
@@ -261,7 +261,7 @@ class PagesController < ApplicationController
       if valor_temp_formato_brasil[(indice_da_virgula + 3)] == "0" or valor_temp_formato_brasil[(indice_da_virgula + 3)] == nil # ou seja, se eu tenho um zero depois de duas casas da vírgula: ,__0
         @valor_por_quota = "Valor da quota: #{valor_temp_formato_brasil[0..(indice_da_virgula + 2)]}" # então eu pego só duas casas decimais depois da vírgula
       else
-        @valor_por_quota = "Valor da quota (aproximado): #{valor_temp_formato_brasil[0..(indice_da_virgula + 4)]}"
+        @valor_por_quota = "Valor da quota ( aproximado ): #{valor_temp_formato_brasil[0..(indice_da_virgula + 4)]}"
       end
     end
   end

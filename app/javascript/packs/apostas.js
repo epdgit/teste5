@@ -65,7 +65,7 @@ function salvarPDF() {
 
       let pageInfo = doc.setPage(1); // pegando a primeira página para só nela lançar dados
       console.log(pageInfo.pageNumber)
-      pageInfo.text(width/2, 202, "eTARTA.com.br", {align:  'center'});
+      pageInfo.text(width/2, 163, "eTARTA.com.br", {align:  'center'});
       pageInfo.text(1100, 40, dataHora);
       
       //PAGINANDO O DOCUMENTO
