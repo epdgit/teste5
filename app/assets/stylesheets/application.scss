@@ -398,6 +398,11 @@ fieldset {
   padding-top: 24px;
   box-shadow: 1px 1px 5px grey;
   border-radius: 8px;
+  padding-bottom: 15px;
+}
+
+.classe-apostas-geradas {
+  margin: 11px auto !important;
 }
 
 #jogos-gerados-ruby {
@@ -447,6 +452,31 @@ fieldset {
 // #jogos-gerados-ruby-numeros-sorte a:hover {
 //   text-decoration: none;
 // }
+// .obter-pdf {
+//   color: #204A65;
+//   font-weight: 700;
+//   font-size: 25px;
+//   font-family: 'Rokkitt', serif;
+//   // margin-left: 26px;
+//   // margin-bottom: 25px;
+//   margin-top: 30px;
+// }
+#botao-root {
+  margin-left: 160px;
+}
+
+
+.fa-file-pdf {
+  font-size: 50px;
+}
+
+.icone-pdf {
+  text-align: center;
+}
+
+
+
+
 
 .resultado-apostas-geradas {
   color: #204A65;
@@ -524,7 +554,8 @@ fieldset {
   margin-top: 45px;
   margin-bottom: 20px;
   margin-left: 50px;
-  box-shadow: 0px 2px 0px 0px red;
+  box-shadow: 0px -2px 0px 0px red;
+  padding-top: 15px;
   width: 300px;
 
 }

@@ -11,12 +11,20 @@
 <br>
 <br>
 <br>
-<%# <%= link_to "Início", root_path %>
-<button id="botao-root" class="btn btn-primary">INÍCIO</button> <%# <a href="/">VOLTAR AO INÍCIO</a>  %>
+<div>
+  <%# <%= link_to "Início", root_path %>
+  <button id="botao-root" class="btn btn-primary">Tela Inicial</button> <%# <a href="/">VOLTAR AO INÍCIO</a>  %>
+</div>
 <%# <h1><%= @aposta </h1> %>
+
+<div class="icone-pdf">
+  <%# <p class="obter-pdf">Obter PDF</p> %>
+  <button type="button" class="botao-mais-menos" id="meu-pdf"><i class="fas fa-file-pdf"  style="color: #ff4d4d"></i></button>
+</div>
+
 <div>
   <div id="printar_pdf">
-    <div id=<%=@id_div_apostas %> style=""> 
+    <div class="classe-apostas-geradas" id=<%=@id_div_apostas %> style=""> 
       <h1 class="resultado-apostas-geradas"><%= @nome %></h1>
       <h3 id="data_bolao"><%= @data %></h2>
       <ol >
@@ -51,11 +59,11 @@
               <li id="">
                 <div class="test_drive">
                   <div>
-                    <%= "#{apostador} - #{@array_quotas[contando]} quota(s) "  %>
+                    <%= "#{apostador} - #{@array_quotas[contando]} quota(s) #{ @array_pagamento[contando] == 'on' ? '- PG' : '' }"  %>
                   </div>
-                  <div>
-                    <%= "#{ @array_pagamento[contando] == 'on' ? '- PAGO' : '' }" %>
-                  </div>
+                  <%# <div>
+                    <%= "#{ @array_pagamento[contando] == 'on' ? ' - PG' : '' }"
+                  </div> %>
                 </div>
                 <% contando += 1 %>
               </li>
@@ -68,7 +76,7 @@
 
     </div>
   </div>
-  <button type="button" class="botao-mais-menos" id="meu-pdf"><i class="fas fa-file-pdf"  style="color: #ff4d4d"></i></button>
+  <%# <button type="button" class="botao-mais-menos" id="meu-pdf"><i class="fas fa-file-pdf"  style="color: #ff4d4d"></i></button> %>
 </div>
 
 <table class="table_content">
