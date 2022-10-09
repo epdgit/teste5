@@ -290,7 +290,9 @@ class PagesController < ApplicationController
     @sorteios = Sorteio.all
     todos_numeros = []
     @mais_saem = []
-    @menos_saem = [] 
+    @menos_saem = []
+    @media = []
+    @media_mil = []
     @array17 = [] 
     @array13 = []
     @array10 = []
@@ -313,6 +315,30 @@ class PagesController < ApplicationController
     @array17 = @array17.to_set.to_a.sort
     @array13 = @array13.to_set.to_a.sort
     @array10 = @array10.to_set.to_a.sort
+
+    # OBTENDO NÚMEROS NA MÉDIA ÚLTIMOS 1000 JOGOS
+    contador_mil = 1
+    todos_numeros_mil_temp = []
+    while contador_mil < 1001
+      numeros_mil = @sorteios[- contador_mil].numeros.split(/,/).map {|x| x.to_i} 
+      for x in numeros_mil 
+        todos_numeros_mil_temp << x 
+      end   
+      contador_mil += 1 
+    end
+    hashruby_mil = todos_numeros_mil_temp.group_by { |v| v }.map { |k, v| [k.to_i, v.size] }.to_h
+    hash_final_todos_numeros_mil = hashruby_mil.sort_by {|_key, value| value}.to_h
+    array_ordenado_menos_saem_ate_mais_saem_mil = hash_final_todos_numeros_mil.keys
+    @mais_saem_mil = array_ordenado_menos_saem_ate_mais_saem_mil.last(30).reverse # NÃO UTILIZADO!!!! começa do que mais sai
+    @menos_saem_mil = array_ordenado_menos_saem_ate_mais_saem_mil.first(30) # NÃO UTILIZADO!!!!  começa do que menos sai
+    contador_media_mil = 15
+    while contador_media_mil < 45
+      @media_mil << array_ordenado_menos_saem_ate_mais_saem_mil[contador_media_mil]
+      contador_media_mil += 1
+    end  
+
+
+
     # MAIS SAEM E MENOS SAEM (UTILIZADO PELO JAVA SCRIPT)
     @sorteios.each { |sorteio|
       array_temp = sorteio.numeros.split(/,/).map {|x| x.to_i}
@@ -326,6 +352,12 @@ class PagesController < ApplicationController
     array_ordenado_menos_saem_ate_mais_saem = hash_final_todos_numeros.keys
     @mais_saem = array_ordenado_menos_saem_ate_mais_saem.last(30).reverse # começa do que mais sai
     @menos_saem = array_ordenado_menos_saem_ate_mais_saem.first(30) # começa do que menos sai
+  
+    contador_media = 15
+    while contador_media < 45
+      @media << array_ordenado_menos_saem_ate_mais_saem[contador_media]
+      contador_media += 1
+    end
 
 
   
