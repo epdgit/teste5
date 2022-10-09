@@ -42,7 +42,7 @@
 
 
 
-  <input form="numeroSorte2" id="numeros-da-sorte-fim2" name="meusNumeros2" type="text" class="form-control" oninput="trocarSeletorNumerosConjuntos()" value="" style="display: none" > <%# style="display: none"  %>
+  <input form="numeroSorte2" id="numeros-da-sorte-fim2" name="meusNumeros2" type="text" class="form-control" oninput="trocarSeletorNumerosConjuntos()" value=""  > <%# style="display: none"  %>
 
 
 
@@ -90,15 +90,18 @@
 
 <button type="button" id="mais-saem" onclick="maisSaem()" class="btn btn-primary">Mais saem</button>
 <button type="button" id="menos-saem" onclick="menosSaem()" class="btn btn-primary">Menos saem</button>
+<button type="button" id="media" onclick="media()" class="btn btn-primary">Média</button>
+<button type="button" id="media_mil" onclick="mediaMil()" class="btn btn-primary">Média 1000</button>
 <button type="button" id="ramalho-dantas" onclick="ramalhoDantas()" class="btn btn-primary">Conjunto RD</button>
 <button type="button" id="ult17" onclick="ultD()" class="btn btn-primary">Estou com sorte</button>
-<button type="button" id="ult10" onclick="ultT()" class="btn btn-primary">Arrojado</button>
+<button type="button" id="ult13" onclick="ultT()" class="btn btn-primary">Arrojado</button>
+<button type="button" id="ult10" onclick="ultDez()" class="btn btn-primary">Mais Arrojado</button>
 
 
 
 
 
-<button type="button" id="limpar" onclick="limpar()" class="btn btn-primary">Limpar Marcações</button>
+<button type="button" id="limpar" onclick="limpar()" class="btn btn-warning">Limpar Marcações</button>
 
 <%# <a href="/">Home</a>  obs.: não recarrega as funções do Javascript  
 <%= link_to 'Home', root_path  obs.: não recarrega as funções do Javascript %>
@@ -115,15 +118,22 @@
  <%= @array13 %>
 </p>
 
-
-<p>Array10:
+<p id="array-ult10" style="display: none">
   <%= @array10  %>
 </p>
-<p>Mais saem:
+<p id="array-mais-saem" style="display: none">
   <%= @mais_saem  %>
 </p>
-<p>Menos saem:
+<p id="array-menos-saem" style="display: none">
   <%= @menos_saem %>
+</p>
+
+<p id="array-media" style="display: none">
+  <%= @media %>
+</p>
+
+<p id="array-media-mil">
+  <%= @media_mil %>
 </p>
 
 
@@ -256,22 +266,33 @@ function limpaQuantidade() {
 
 
 function maisSaem() {
-  mais_saem_todos = [53, 10, 5, 42, 37, 4, 33, 30, 27, 23, 41, 54, 34, 28, 29, 35, 44, 43, 11, 17, 51, 16, 24, 38, 32, 49, 36, 2, 13, 56]
+  // mais_saem_todos = [53, 10, 5, 42, 37, 4, 33, 30, 27, 23, 41, 54, 34, 28, 29, 35, 44, 43, 11, 17, 51, 16, 24, 38, 32, 49, 36, 2, 13, 56]
   // var mais_saem_length = mais_saem_todos.length
+
+  var arrayMaisSaem = document.getElementById("array-mais-saem").textContent
+  var numeroCaracteres = arrayMaisSaem.length
+  var arrayMaisSaemstring = arrayMaisSaem.substring(4, numeroCaracteres - 2).split(",")
+  var arrayMaisSaemlength = arrayMaisSaemstring.length
+  var arrayMaisSaemFim = []
+  var contador = 0
+  for(var i = 0; i < arrayMaisSaemlength; i++) {
+    arrayMaisSaemFim.push(parseInt(arrayMaisSaemstring[i])) // convetendo o array de strings para array de integers
+  }
+
   var numerosTodos = document.getElementsByClassName("numero-sorte");
   var intLength = numerosTodos.length;
   var total = 0;
   
   for(var i = 0; i < intLength; i++) {
         var check_numero = numerosTodos[i];
-        if (mais_saem_todos.includes(check_numero.value) == true) {
+        if (arrayMaisSaemFim.includes(check_numero.value) == true) {
           check_numero.classList.add("selected");
         } else {
           check_numero.classList.remove("selected");
         };
   };
   if (arrayDaSorte) {
-    arrayDaSorte = mais_saem_todos
+    arrayDaSorte = arrayMaisSaemFim
   }
   document.getElementById("numeros-da-sorte-fim2").setAttribute("value", `${arrayDaSorte}`);
   // document.getElementById("numeros-da-sorte-fim2").trigger('change')
@@ -281,26 +302,107 @@ function maisSaem() {
 
 
 function menosSaem() {
-  menos_saem_todos = [6, 52, 8, 46, 18, 50, 58, 12, 1, 20, 25, 40, 45, 47, 7, 39, 19, 60, 57, 9, 59, 31, 14, 48, 3, 22, 15, 21, 55, 26]
+  // menos_saem_todos = [6, 52, 8, 46, 18, 50, 58, 12, 1, 20, 25, 40, 45, 47, 7, 39, 19, 60, 57, 9, 59, 31, 14, 48, 3, 22, 15, 21, 55, 26]
+
+  var arrayMenosSaem = document.getElementById("array-menos-saem").textContent
+  var numeroCaracteres = arrayMenosSaem.length
+  var arrayMenosSaemstring = arrayMenosSaem.substring(4, numeroCaracteres - 2).split(",")
+  var arrayMenosSaemlength = arrayMenosSaemstring.length
+  var arrayMenosSaemFim = []
+  var contador = 0
+  for(var i = 0; i < arrayMenosSaemlength; i++) {
+    arrayMenosSaemFim.push(parseInt(arrayMenosSaemstring[i])) // convetendo o array de strings para array de integers
+  }
+
   var numerosTodos = document.getElementsByClassName("numero-sorte");
   var intLength = numerosTodos.length;
   var total = 0;
   
   for(var i = 0; i < intLength; i++) {
         var check_numero = numerosTodos[i];
-        if (menos_saem_todos.includes(check_numero.value) == true) {
+        if (arrayMenosSaemFim.includes(check_numero.value) == true) {
           check_numero.classList.add("selected");
         } else {
           check_numero.classList.remove("selected");
         };
   };
   if (arrayDaSorte) {
-    arrayDaSorte = menos_saem_todos
+    arrayDaSorte = arrayMenosSaemFim
   }
   document.getElementById("numeros-da-sorte-fim2").setAttribute("value", `${arrayDaSorte}`);
   document.getElementById("numeros-da-sorte-fim2").dispatchEvent(new Event('change')) // a troca dinâmica do Value não faz por padrão um evento 'change', o que impede um addEventListener, então, tem que fazer isso na marra!
   limpaQuantidade()
 }
+
+
+function media() {
+
+  var arrayMedia = document.getElementById("array-media").textContent
+  var numeroCaracteres = arrayMedia.length
+  var arrayMediastring = arrayMedia.substring(4, numeroCaracteres - 2).split(",")
+  var arrayMedialength = arrayMediastring.length
+  var arrayMediaFim = []
+  var contador = 0
+  for(var i = 0; i < arrayMedialength; i++) {
+    arrayMediaFim.push(parseInt(arrayMediastring[i])) // convetendo o array de strings para array de integers
+  }
+
+  var numerosTodos = document.getElementsByClassName("numero-sorte");
+  var intLength = numerosTodos.length;
+  var total = 0;
+  
+  for(var i = 0; i < intLength; i++) {
+        var check_numero = numerosTodos[i];
+        if (arrayMediaFim.includes(check_numero.value) == true) {
+          check_numero.classList.add("selected");
+        } else {
+          check_numero.classList.remove("selected");
+        };
+  };
+  if (arrayDaSorte) {
+    arrayDaSorte = arrayMediaFim
+  }
+  document.getElementById("numeros-da-sorte-fim2").setAttribute("value", `${arrayDaSorte}`);
+  document.getElementById("numeros-da-sorte-fim2").dispatchEvent(new Event('change')) // a troca dinâmica do Value não faz por padrão um evento 'change', o que impede um addEventListener, então, tem que fazer isso na marra!
+  limpaQuantidade()
+}
+
+
+function mediaMil() {
+
+  var arrayMediaMil = document.getElementById("array-media-mil").textContent
+  var numeroCaracteres = arrayMediaMil.length
+  var arrayMediaMilstring = arrayMediaMil.substring(4, numeroCaracteres - 2).split(",")
+  var arrayMediaMillength = arrayMediaMilstring.length
+  var arrayMediaMilFim = []
+  var contador = 0
+  for(var i = 0; i < arrayMediaMillength; i++) {
+    arrayMediaMilFim.push(parseInt(arrayMediaMilstring[i])) // convetendo o array de strings para array de integers
+  }
+
+  var numerosTodos = document.getElementsByClassName("numero-sorte");
+  var intLength = numerosTodos.length;
+  var total = 0;
+  
+  for(var i = 0; i < intLength; i++) {
+        var check_numero = numerosTodos[i];
+        if (arrayMediaMilFim.includes(check_numero.value) == true) {
+          check_numero.classList.add("selected");
+        } else {
+          check_numero.classList.remove("selected");
+        };
+  };
+  if (arrayDaSorte) {
+    arrayDaSorte = arrayMediaMilFim
+  }
+  document.getElementById("numeros-da-sorte-fim2").setAttribute("value", `${arrayDaSorte}`);
+  document.getElementById("numeros-da-sorte-fim2").dispatchEvent(new Event('change')) // a troca dinâmica do Value não faz por padrão um evento 'change', o que impede um addEventListener, então, tem que fazer isso na marra!
+  limpaQuantidade()
+}
+
+
+
+
 
 
 
@@ -390,6 +492,45 @@ function ultT() {
   document.getElementById("numeros-da-sorte-fim2").dispatchEvent(new Event('change')) // a troca dinâmica do Value não faz por padrão um evento 'change', o que impede um addEventListener, então, tem que fazer isso na marra!
   limpaQuantidade()
 }
+
+
+
+
+
+function ultDez() {
+  var array10 = document.getElementById("array-ult10").textContent
+  var numeroCaracteres = array10.length
+  var array10string = array10.substring(4, numeroCaracteres - 2).split(",")
+  var array10length = array10string.length
+  var array10Fim = []
+  var contador = 0
+  for(var i = 0; i < array10length; i++) {
+    array10Fim.push(parseInt(array10string[i]))
+  }
+
+  var numerosTodos = document.getElementsByClassName("numero-sorte");
+  var intLength = numerosTodos.length;
+  var total = 0;
+  
+  for(var i = 0; i < intLength; i++) {
+        var check_numero = numerosTodos[i];
+        if (array10Fim.includes(check_numero.value) == true) {
+          check_numero.classList.add("selected");
+        } else {
+          check_numero.classList.remove("selected");
+        };
+  };
+  if (arrayDaSorte) {
+    arrayDaSorte = array10Fim
+  }
+  document.getElementById("numeros-da-sorte-fim2").setAttribute("value", `${arrayDaSorte}`);
+  document.getElementById("numeros-da-sorte-fim2").dispatchEvent(new Event('change')) // a troca dinâmica do Value não faz por padrão um evento 'change', o que impede um addEventListener, então, tem que fazer isso na marra!
+  limpaQuantidade()
+}
+
+
+
+
 
 
 
