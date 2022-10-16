@@ -14,7 +14,7 @@
 
 
 <%# <ul id="ul_jogos-gerados-ruby"> %>
-<form action="/conjuntos"  class="form-inline" id="numeroSorte2" name="nsorte2"> <!-- método GET ou POST: method="POST"-->
+<form action="/conjuntos"  class="form-inline" id="numeroSorte2" name="nsorte2" > <!-- método GET ou POST: method="POST"-->
   <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>"><%# essa linha serve para o método POST, onde é exigido que haja um token de autenticidade %>
   <%# <input type="hidden" name="authenticity_token" value="6mcCvU7ZazpIBcJTptw/8y4EucmzccFWli7tFUzX6IJEx8wq6PFC7m4rA1Jy+W4YW1hlhYhSOyhZefWtOM5ofQ=="> %>
   <div class="form-group">
@@ -42,8 +42,23 @@
 
 
 
-  <input form="numeroSorte2" id="numeros-da-sorte-fim2" name="meusNumeros2" type="text" class="form-control" oninput="trocarSeletorNumerosConjuntos()" value=""  > <%# style="display: none"  %>
+  <input form="numeroSorte2" id="numeros-da-sorte-fim2" name="meusNumeros2" type="text" class="form-control" oninput="trocarSeletorNumerosConjuntos()" value=""  style="display: none" > <%# style="display: none"  %>
 
+  <div> <%# FUNÇÃO E ID NÃO PODEM TER O MESMO NOME!!! CASO CONTRÁRIO, O JS DIZ QUE A FUNÇÃO NÃO EXISTE!!! %>
+    <div>
+      <button type="button" id="mais-saem" onclick="maisSaem()" class="btn btn-primary">Mais saem</button>
+      <button type="button" id="menos-saem" onclick="menosSaem()" class="btn btn-primary">Menos saem</button>
+      <button type="button" id="media_todos" onclick="media()" class="btn btn-primary">Média</button>
+      <button type="button" id="media_mil" onclick="mediaMil()" class="btn btn-primary">Média 1000</button>
+      <button type="button" id="ramalho-dantas" onclick="ramalhoDantas()" class="btn btn-primary">Conjunto RD</button>
+      <button type="button" id="ult17" onclick="ultD()" class="btn btn-primary">Estou com sorte</button>
+      <button type="button" id="ult13" onclick="ultT()" class="btn btn-primary">Arrojado</button>
+      <button type="button" id="ult10" onclick="ultDez()" class="btn btn-primary">Mais Arrojado</button>
+    </div>
+    <div>
+      <button type="button" id="limpa" onclick="limpar()" class="btn btn-warning">Limpar Marcações</button>
+    </div>
+  </div>
 
 
   <div class="quantidade-numeros">
@@ -78,7 +93,7 @@
       </li>
     </ul> %>
     <div id="div-do-botao-numeros-da-sorte">
-      <button type="submit" id="meus-numeros-da-sorte" class=" btn btn-primary btn-lg" disabled="true"><span class="fas fa-sack-dollar"> <%# onclick="testeQuantidade()"  %>
+      <button type="submit" id="meus-numeros-da-sorte" class=" btn btn-primary btn-lg" disabled="true" ><span class="fas fa-sack-dollar"> <%# onclick="testeQuantidade()"  %>
       </span> Gerar Apostas</button>
       <div id="alerta">
         <h6 id="mensagem-alerta">Crie seu conjunto com 7 ou mais números! Só então você poderá gerar suas apostas. ☘️</h6>
@@ -88,20 +103,12 @@
 </form>
 
 
-<button type="button" id="mais-saem" onclick="maisSaem()" class="btn btn-primary">Mais saem</button>
-<button type="button" id="menos-saem" onclick="menosSaem()" class="btn btn-primary">Menos saem</button>
-<button type="button" id="media" onclick="media()" class="btn btn-primary">Média</button>
-<button type="button" id="media_mil" onclick="mediaMil()" class="btn btn-primary">Média 1000</button>
-<button type="button" id="ramalho-dantas" onclick="ramalhoDantas()" class="btn btn-primary">Conjunto RD</button>
-<button type="button" id="ult17" onclick="ultD()" class="btn btn-primary">Estou com sorte</button>
-<button type="button" id="ult13" onclick="ultT()" class="btn btn-primary">Arrojado</button>
-<button type="button" id="ult10" onclick="ultDez()" class="btn btn-primary">Mais Arrojado</button>
 
 
 
 
-
-<button type="button" id="limpar" onclick="limpar()" class="btn btn-warning">Limpar Marcações</button>
+<%#  %>
+<%# <button type="button" id="limpar" onclick="limpar()" class="btn btn-warning">Limpar Marcações</button> %>
 
 <%# <a href="/">Home</a>  obs.: não recarrega as funções do Javascript  
 <%= link_to 'Home', root_path  obs.: não recarrega as funções do Javascript %>
@@ -132,7 +139,7 @@
   <%= @media %>
 </p>
 
-<p id="array-media-mil">
+<p id="array-media-mil" style="display: none">
   <%= @media_mil %>
 </p>
 
@@ -147,6 +154,8 @@
         <%= @conjunto.join(", ") %>
       <% end %>
     </p>
+
+    <h2 class="divisor" style="display: none"></h2>
 
     <h1 class="resultado-apostas-geradas-estatisticas">
     <% if @conjunto %>
@@ -166,8 +175,12 @@
         </li>
       <% end %>
     </ol>
+
+    <h2 class="divisor" style="display: none"></h2>
+
     <h1 class="resultado-apostas-geradas-estatisticas"><%= @valor %></h1>
     <h1 class="resultado-apostas-geradas-estatisticas"><%= @chance_printada %></h1>
+    <h1 class="resultado-apostas-geradas-estatisticas"><%= @chance_escopo_printada %></h1>
   </div>
 </div>
 
@@ -529,8 +542,20 @@ function ultDez() {
 }
 
 
+function h2Vermelho() {
+    var todos_h2 = document.getElementsByClassName("divisor");
+    var intLengthH2 = todos_h2.length;
 
+    for(var i = 0; i < intLengthH2; i++) {
+        var cadaH2 = todos_h2[i];
+        cadaH2.removeAttribute("style")
+    }
+    
+}
 
+if ( document.getElementById("jogos-gerados-ruby") ) {
+window.onload =  h2Vermelho()
+}
 
 
 
