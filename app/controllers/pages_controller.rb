@@ -268,12 +268,14 @@ class PagesController < ApplicationController
 
 
   def sorte
+    @quantidade_sorteios = Sorteio.all.size.to_s.reverse.scan(/.{1,3}/).join('.').reverse
     @array_sorte = []
     @conferir_sorte = []
     numeros = params[:meusNumeros]
     if numeros
       @numeros_da_sorte = numeros.split(/,/).map(&:to_i).sort # SE FUNCIONAR Isso cria um array com os números selecionados
       @sorteios = Sorteio.all
+      @id_div_apostas = "apostas-geradas"
       # @sorteios.each do |sorteio|
       #   sorteio.numeros
       # end
@@ -417,6 +419,31 @@ class PagesController < ApplicationController
 
       chance = @mega[:probabilidade][numeros_cada_aposta - indice_corretor]/apostas_desejadas
       @chance_printada = "Sua chance será de 1 em #{chance.to_s.reverse.scan(/.{1,3}/).join('.').reverse}"
+  
+
+
+      # CALCULANDO ESTATÍSTICA PARA O CONJUNTO. PARA A APOSTA ESPECÍFICA DO CONJUNTO TIVE PROBLEMAS COM CONJUNTOS PEQUENOS, POIS PODEM HAVER APOSTAS REPETIDAS, O QUE TRAZ ERRO PARA A ESTATÍSTICA
+      def fatorial(n)
+        if n == 1
+          return 1
+        else
+          return n*fatorial(n - 1)
+        end
+      end
+      
+      def probabilidade(conjunto, numeros_do_sorteio)
+        prob_se_numeros_sorteados_no_conjunto = fatorial(conjunto)/(fatorial(numeros_do_sorteio)*fatorial(conjunto-numeros_do_sorteio))
+        return prob_se_numeros_sorteados_no_conjunto
+        # if numeros_por_aposta == numeros_do_sorteio
+        #   quantidade_apostas_feitas_tomando_6x6 = total_de_apostas
+        # else
+        #   quantidade_apostas_feitas_tomando_6x6 = total_de_apostas*(fatorial(numeros_por_aposta)/(fatorial(numeros_do_sorteio)*fatorial(numeros_por_aposta-numeros_do_sorteio)))
+        # end
+        # return prob_se_numeros_sorteados_no_conjunto/quantidade_apostas_feitas_tomando_6x6
+      end
+      chance_no_escopo = probabilidade(@conjunto.size, 6)
+      chance_mega = probabilidade(60, 6)
+      @chance_escopo_printada = "A Mega possui #{chance_mega.to_s.reverse.scan(/.{1,3}/).join('.').reverse} de combinações, das quais #{chance_no_escopo.to_s.reverse.scan(/.{1,3}/).join('.').reverse} estão contidas no seu conjunto da sorte."
     end
 
 

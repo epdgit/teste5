@@ -10,7 +10,7 @@
 <br>
 <br>
 <br>
-<h1>FUNCIONANDO</h1>
+<h1 class="resultado-apostas-geradas-estatisticas" >Você é daquele tipo de pessoa que possui números da sorte? Chegou a hora de testar seus números! Escolha 6 números da sorte e compare-os com <%= @quantidade_sorteios %> sorteios da Mega-sena.</h1>
 
 
 <%# <ul id="ul_jogos-gerados-ruby"> %>
@@ -76,64 +76,125 @@
 <%# <a href="/">Home</a>  obs.: não recarrega as funções do Javascript  
 <%= link_to 'Home', root_path  obs.: não recarrega as funções do Javascript %>
 <button id="botao-root" class="btn btn-primary">INÍCIO</button> 
-
-<p>
-  <% if @numeros_da_sorte %>
-    <%= "Seus números da sorte: " %>
-    <% @numeros_da_sorte.each do |x| %>
-    <%= x %>
-    <% end %>
-  <% end %>
-</p>
+<%#  %>
 
 
-<p>
-  <% contador_terno = 0 %>
-  <% contador_quadra = 0 %>
-  <% contador_quina = 0 %>
-  <% contador_sena = 0 %>
-  <% quadras = [] %>
-  <% quinas = [] %>
-  <% senas = [] %>
-  <% if @sorteios %>
-    <h4><%= "Checados #{@sorteios.size} sorteios realizados pela Caixa Econômica Federal (MEGASENA), seus números da 
-         sorte (#{@numeros_da_sorte[0]}, #{@numeros_da_sorte[1]}, #{@numeros_da_sorte[2]}, #{@numeros_da_sorte[3]}, #{@numeros_da_sorte[4]}, #{@numeros_da_sorte[5]}) obtiveram os seguintes resultados:" %></h4>
-    <% @sorteios.each do |sorteio|  %>
-    <% numeros_sorteados =  sorteio.numeros.split(/,/).map {|x| x.to_i} %>
-      <% if (numeros_sorteados & @numeros_da_sorte).size == 3 %>
-        <% contador_terno += 1 %>
-      <% elsif (numeros_sorteados & @numeros_da_sorte).size == 4 %>
-        <% contador_quadra += 1 %>
-        <% quadras << sorteio %>
-      <% elsif (numeros_sorteados & @numeros_da_sorte).size == 5 %>
-        <% contador_quina += 1 %>
-        <% quinas << sorteio %>
-      <% elsif (numeros_sorteados & @numeros_da_sorte).size == 6 %>
-        <% contador_sena += 1 %>
-        <% senas << sorteio %>  
-      <% end %>
-    <% end %>
-    <p><%= "Ternos: #{contador_terno} (sem premiação)." %></p>
-    <p><%= "#{contador_quadra} quadras: #{quadras}" %></p>
-
-    <p>
-      <% if (contador_quina > 0) %>
-        <%= "#{contador_quina} quina(s): #{quinas}" %>
-      <% else %>
-        <%= "Quinas: Nenhuma quina para esses números!" %>
+<%# GERANDO JOGOS:  %>
+<div>
+  <div id=<%=@id_div_apostas %> style=""> 
+    <p class="resultado-apostas-geradas-estatisticas">
+      <% if @numeros_da_sorte %>
+        <%= "Seus números da sorte: #{@numeros_da_sorte[0]}, #{@numeros_da_sorte[1]}, #{@numeros_da_sorte[2]}, #{@numeros_da_sorte[3]}, #{@numeros_da_sorte[4]}, #{@numeros_da_sorte[5]}" %>
       <% end %>
     </p>
 
 
-    <p>
-      <% if (contador_sena > 0) %>
-        <%= "#{contador_sena} sena(s): #{senas}" %>
-      <% else %>
-        <%= "Senas: Nenhuma sena para esses números!" %>
+    <p >
+      <% contador_terno = 0 %>
+      <% contador_quadra = 0 %>
+      <% contador_quina = 0 %>
+      <% contador_sena = 0 %>
+      <% quadras = [] %>
+      <% quinas = [] %>
+      <% senas = [] %>
+      <% if @sorteios %>
+        <h4 class="resultado-apostas-geradas-estatisticas"><%= "Checados #{@sorteios.size} sorteios realizados pela Caixa Econômica Federal (Mega-sena), seus números da 
+            sorte obtiveram os seguintes resultados:" %></h4>
+        <% @sorteios.each do |sorteio|  %>
+        <% numeros_sorteados =  sorteio.numeros.split(/,/).map {|x| x.to_i} %>
+          <% if (numeros_sorteados & @numeros_da_sorte).size == 3 %>
+            <% contador_terno += 1 %>
+          <% elsif (numeros_sorteados & @numeros_da_sorte).size == 4 %>
+            <% contador_quadra += 1 %>
+            <% quadras << sorteio %>
+          <% elsif (numeros_sorteados & @numeros_da_sorte).size == 5 %>
+            <% contador_quina += 1 %>
+            <% quinas << sorteio %>
+          <% elsif (numeros_sorteados & @numeros_da_sorte).size == 6 %>
+            <% contador_sena += 1 %>
+            <% senas << sorteio %>  
+          <% end %>
+        <% end %>
+        <%# <p class="resultado-apostas-geradas-estatisticas"><%= "Ternos: #{contador_terno} (sem premiação)." %>
+        <p class="resultado-apostas-geradas-estatisticas">
+          <% if (contador_terno > 0) %>
+            <%= "Ternos: #{contador_terno} (sem premiação)." %>
+          <% else %>
+            <%= "Ternos: Nenhum terno para esses números!" %>
+          <% end %>
+        </p>
+
+
+
+        <%# <p class="resultado-apostas-geradas-estatisticas"><%= "#{contador_quadra} quadras: #{quadras}" %>
+
+        <p class="resultado-apostas-geradas-estatisticas">
+          <% if (contador_quadra > 0) %>
+            <%= "#{contador_quadra} quadra(s): #{quadras}" %>
+          <% else %>
+            <%= "Quadras: Nenhuma quadra para esses números!" %>
+          <% end %>
+        </p>
+
+
+        <p class="resultado-apostas-geradas-estatisticas">
+          <% if (contador_quina > 0) %>
+            <%= "#{contador_quina} quina(s): #{quinas}" %>
+          <% else %>
+            <%= "Quinas: Nenhuma quina para esses números!" %>
+          <% end %>
+        </p>
+
+
+        <p class="resultado-apostas-geradas-estatisticas">
+          <% if (contador_sena > 0) %>
+            <%= "#{contador_sena} sena(s): #{senas}" %>
+          <% else %>
+            <%= "Senas: Nenhuma sena para esses números!" %>
+          <% end %>
+        </p>
       <% end %>
     </p>
-  <% end %>
-</p>
+
+
+
+
+    <%# <h2 class="divisor" style="display: none"></h2> %>
+
+
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
