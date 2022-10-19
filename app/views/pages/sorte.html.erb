@@ -118,9 +118,9 @@
         <%# <p class="resultado-apostas-geradas-estatisticas"><%= "Ternos: #{contador_terno} (sem premiação)." %>
         <p class="resultado-apostas-geradas-estatisticas">
           <% if (contador_terno > 0) %>
-            <%= "Ternos: #{contador_terno} (sem premiação)." %>
+            <i class="fas fa-search-dollar"  style="margin-right: 10px"></i><%= "Ternos: #{contador_terno} (sem premiação)." %>
           <% else %>
-            <%= "Ternos: Nenhum terno para esses números!" %>
+            <i class="fas fa-search-dollar"  style="margin-right: 10px"></i><%= "Ternos: Nenhum terno para esses números!" %>
           <% end %>
         </p>
 
@@ -130,27 +130,55 @@
 
         <p class="resultado-apostas-geradas-estatisticas">
           <% if (contador_quadra > 0) %>
-            <%= "#{contador_quadra} quadra(s): #{quadras}" %>
+            <i class="fas fa-search-dollar"  style="margin-right: 10px"></i><%= "#{contador_quadra} quadra(s):" %>  <%# {quadras} %>
+            <% if contador_quadra == 1 %>
+              <p class="resultado-apostas-geradas-estatisticas-sorte"><%= "Concurso #{quadras[0].concurso}, realizado em #{quadras[0].data}, números: #{quadras[0].numeros}." %></p>
+            <% elsif contador_quadra > 1 %>
+              <% contando = 1 %>
+              <% for x in quadras %>
+                <p class="resultado-apostas-geradas-estatisticas-sorte"><%= "#{contando}. Concurso #{x.concurso}, realizado em #{x.data}, números: #{x.numeros}." %></p>
+                <% contando += 1 %>
+              <% end %>
+            <% end %>
           <% else %>
-            <%= "Quadras: Nenhuma quadra para esses números!" %>
+            <i class="fas fa-search-dollar"  style="margin-right: 10px"></i><%= "Quadras: Nenhuma quadra para esses números!" %>
           <% end %>
         </p>
 
+<%# <Sorteio id: 1228, concurso: 1223, data: "16/10/2010", numeros: "15, 17, 35, 42, 47, 48", created_at: "2022-09-17 22:52:46", updated_at: "2022-09-17 22:52:46">  %>
 
         <p class="resultado-apostas-geradas-estatisticas">
           <% if (contador_quina > 0) %>
-            <%= "#{contador_quina} quina(s): #{quinas}" %>
+            <i class="fas fa-search-dollar"  style="margin-right: 10px"></i><%= "#{contador_quina} quina(s):" %>  <%# {quinas} %>
+            <% if contador_quina == 1 %>
+              <p class="resultado-apostas-geradas-estatisticas-sorte"><%= "Concurso #{quinas[0].concurso}, realizado em #{quinas[0].data}, números: #{quinas[0].numeros}." %></p>
+            <% elsif contador_quina > 1 %>
+              <% contando = 1 %>
+              <% for x in quinas %>
+                <p class="resultado-apostas-geradas-estatisticas-sorte"><%= "#{contando}. Concurso #{x.concurso}, realizado em #{x.data}, números: #{x.numeros}." %></p>
+                <% contando += 1 %>
+              <% end %>
+            <% end %>
           <% else %>
-            <%= "Quinas: Nenhuma quina para esses números!" %>
+            <i class="fas fa-search-dollar"  style="margin-right: 10px"></i><%= "Quinas: Nenhuma quina para esses números!" %>
           <% end %>
         </p>
 
 
-        <p class="resultado-apostas-geradas-estatisticas">
+        <p class="resultado-apostas-geradas-estatisticas" >
           <% if (contador_sena > 0) %>
-            <%= "#{contador_sena} sena(s): #{senas}" %>
+            <i class="fas fa-search-dollar" style="margin-right: 10px"></i><%= "#{contador_sena} sena(s):" %>  <%# {senas} %>
+            <% if contador_sena == 1 %>
+              <p class="resultado-apostas-geradas-estatisticas-sorte"><%= "Concurso #{senas[0].concurso}, realizado em #{senas[0].data}, números: #{senas[0].numeros}." %></p>
+            <% elsif contador_sena > 1 %>
+              <% contando = 1 %>
+              <% for x in senas %>
+                <p class="resultado-apostas-geradas-estatisticas-sorte"><%= "#{contando}. Concurso #{x.concurso}, realizado em #{x.data}, números: #{x.numeros}." %></p>
+                <% contando += 1 %>
+              <% end %>
+            <% end %>            
           <% else %>
-            <%= "Senas: Nenhuma sena para esses números!" %>
+            <i class="fas fa-search-dollar"  style="margin-right: 10px"></i><%= "Senas: Nenhuma sena para esses números!" %>
           <% end %>
         </p>
       <% end %>
